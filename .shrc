@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# tilix
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+	if [ -e "/etc/profile.d/vte.sh" ]; then
+		source /etc/profile.d/vte.sh
+	fi
+fi
+
+## exports
+# system
+export EDITOR="vi"
+# customizations
+export SVN_EDITOR="$EDITOR"
+# path
+export PATH=$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:$PATH
+
+## aliases
+# system
+alias ls="ls --color=auto"
+alias grep="grep --color=auto"
+alias egrep="egrep --color=auto"
+alias fgrep="fgrep --color=auto"
+# customizations
+alias vi="vim"
+alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
