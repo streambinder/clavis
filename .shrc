@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [ -e ~/.shrc_secure ]; then
+	source ~/.shrc_secure
+fi
+
 # tilix
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
 	if [ -e "/etc/profile.d/vte.sh" ]; then
