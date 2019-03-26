@@ -1,9 +1,8 @@
 #!/bin/bash
 
-cd "$HOME/.config/dconf"
+cd "$HOME/.yadm"
 
-ls | egrep -e '([\.][a-zA-Z0-9])+' | while read dconf_fname; do
-	dconf_entry="/$(sed 's/\./\//g' <<< "${dconf_fname}")/"
-	echo "Loading ${dconf_fname} into ${dconf_entry} entry..."
-	dconf load "${dconf_entry}" < "${dconf_fname}"
+for bootstrap_fname in bootstrap_*; do
+	echo "Trigger sub bootstrap script ${bootstrap_fname}"
+	bash "${bootstrap_fname}"
 done
