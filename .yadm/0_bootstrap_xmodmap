@@ -2,6 +2,6 @@
 
 cd "$HOME"
 
-if witch xmodmap > /dev/null 2>&1 && test -e ".Xmodmap"; then
+if test xmodmap && test -e ".Xmodmap"; then
 	xmodmap ".Xmodmap"
 fi
