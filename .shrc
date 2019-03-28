@@ -28,5 +28,3 @@ alias fgrep="fgrep --color=auto"
 # customizations
 alias vi="vim"
 alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias s_which="which $@ > /dev/null 2>&1"
-
