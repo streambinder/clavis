@@ -1,0 +1,12 @@
+#!/bin/bash
+
+cd "$HOME/.config/systemd/user"
+
+find -maxdepth 1 -type f -name \*.timer -printf "%f\n" | while read systemd_entry; do
+	echo "Enabling ${systemd_entry}"
+	systemctl --user enable ${systemd_entry}
+	systemctl --user start ${systemd_entry}
+done
+
+echo "Flushing systemd daemon cache"
+systemctl --user daemon-reload
