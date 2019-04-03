@@ -3,4 +3,4 @@ Description=YADM config updater service
 
 [Service]
 Type=simple
-ExecStart=/bin/bash ${HOME}/.yadm/scripts/yadm-updater.sh
+ExecStart=/bin/bash %h/.config/systemd/user/yadm-updater.sh
