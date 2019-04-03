@@ -1,8 +1,0 @@
-#!/bin/bash
-
-cd "$HOME"
-
-if test xmodmap && test -e ".Xmodmap"; then
-	echo "Applying custom .Xmodmap"
-	xmodmap ".Xmodmap"
-fi
