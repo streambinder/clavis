@@ -3,4 +3,4 @@
 cd "$HOME"
 
 echo "Applying custom .Xmodmap"
-systemctl --user start xmodmap
+systemctl --user start xmodmap || systemctl --user restart xmodmap
