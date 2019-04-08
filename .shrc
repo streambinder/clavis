@@ -1,11 +1,8 @@
 #!/bin/sh
 
 # external imports
-ls ${HOME}/.shrc_* | while read -r source_import; do
-	if [ -e "~/.${source_import}" ]; then
-		source "~/.${source_import}"
-	fi
-done
+[ -f ${HOME}/.shrc_secure ] && source "${HOME}/.shrc_secure"
+[ -f ${HOME}/.shrc_sudo ] && source "${HOME}/.shrc_sudo"
 
 # tilix
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
