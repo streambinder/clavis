@@ -1,0 +1,14 @@
+#!/bin/bash
+
+cd "$HOME"
+
+source .shrc
+cat <<EOF > ".shrc_sudo"
+#!/bin/sh
+
+EOF
+
+for cmd in ${SUDO_CMDS}; do
+	echo "Aliasing with sudo ${cmd} command"
+	echo "alias ${cmd}=\"sudo \$(which ${cmd})\"" >> ".shrc_sudo"
+done
