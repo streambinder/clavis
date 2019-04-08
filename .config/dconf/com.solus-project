@@ -11,7 +11,7 @@ dock-mode=true
 autohide='intelligent'
 applets=['55940c9c-4c8b-11e9-93a8-e4115b5a789b']
 enable-shadow=false
-location='top'
+location='left'
 transparency='always'
 
 [budgie-panel/panels/{d7f04090-495a-11e9-ad5a-e4115b5a789b}]
@@ -103,6 +103,9 @@ name='User Indicator'
 allow-volume-overdrive=true
 
 [budgie-wm]
+edge-tiling=true
 button-layout='appmenu:minimize,maximize,close'
 center-windows=true
 disable-night-light-on-fullscreen=true
+attach-modal-dialogs=true
+caffeine-mode=false
