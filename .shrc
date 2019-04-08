@@ -1,8 +1,11 @@
 #!/bin/sh
 
-if [ -e ~/.shrc_secure ]; then
-	source ~/.shrc_secure
-fi
+# external imports
+ls ${HOME}/.shrc_* | while read -r source_import; do
+	if [ -e "~/.${source_import}" ]; then
+		source "~/.${source_import}"
+	fi
+done
 
 # tilix
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
@@ -15,6 +18,7 @@ fi
 # system
 export EDITOR="vi"
 # customizations
+export SUDO_CMDS="eopkg"
 export SVN_EDITOR="$EDITOR"
 # path
 export PATH=$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:$PATH
