@@ -8,7 +8,7 @@ cat <<EOF > ".shrc_sudo"
 
 EOF
 
-for cmd in ${SUDO_CMDS}; do
+tr " " "\n" <<< "${SUDO_CMDS}" | while read cmd; do
 	echo "Aliasing with sudo ${cmd} command"
 	echo "alias ${cmd}=\"sudo \$(which ${cmd})\"" >> ".shrc_sudo"
 done
