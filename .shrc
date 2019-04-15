@@ -15,7 +15,7 @@ fi
 # system
 export EDITOR="vi"
 # customizations
-export SUDO_CMDS="eopkg updatedb"
+export SUDO_CMDS="eopkg updatedb openvpn"
 export SVN_EDITOR="$EDITOR"
 # path
 export PATH=$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:$PATH
