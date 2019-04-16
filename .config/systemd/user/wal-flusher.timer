@@ -1,0 +1,10 @@
+[Unit]
+Description=Wal configuration files flusher timer
+ 
+[Timer]
+Unit=wal-flusher.service
+OnCalendar=*-*-* *:*:00
+Persistent=true
+ 
+[Install]
+WantedBy=timers.target
