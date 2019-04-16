@@ -1,21 +1,16 @@
 #!/bin/sh
 
 # external imports
+[ -f /usr/share/defaults/etc/profile.d/vte.sh ] && source /usr/share/defaults/etc/profile.d/vte.sh
 [ -f ${HOME}/.shrc_secure ] && source "${HOME}/.shrc_secure"
 [ -f ${HOME}/.shrc_sudo ] && source "${HOME}/.shrc_sudo"
-
-# tilix
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-	if [ -e "/etc/profile.d/vte.sh" ]; then
-		source /etc/profile.d/vte.sh
-	fi
-fi
+[ -d ${HOME}/.cache/wal ] && (cat ~/.cache/wal/sequences &)
 
 ## exports
 # system
 export EDITOR="vi"
 # customizations
-export SUDO_CMDS="eopkg updatedb openvpn"
+export SUDO_CMDS="eopkg updatedb openvpn solbuild"
 export SVN_EDITOR="$EDITOR"
 # path
 export PATH=$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:$PATH
