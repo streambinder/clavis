@@ -10,6 +10,7 @@
 # system
 export EDITOR="vi"
 # customizations
+export TERM="xterm-256color"
 export SUDO_CMDS="eopkg updatedb openvpn solbuild"
 export SVN_EDITOR="$EDITOR"
 # path
