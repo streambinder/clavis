@@ -1,15 +1,16 @@
 # styling
-Xft.dpi:        96
-Xft.antialias:  true
-Xft.rgba:       rgb
-Xft.hinting:    true
-Xft.hintstyle:  hintfull
-URxvt*geometry: 110x35
-URxvt*scrollBar: false
+Xft.dpi:        	96
+Xft.antialias:  	true
+Xft.rgba:       	rgb
+Xft.hinting:    	true
+Xft.hintstyle:  	hintfull
 URxvt.font:		xft:Monospace:pixelsize=10
 URxvt.boldfont:		xft:Monospace-Bold:pixelsize=10
 URxvt.letterSpace:	-1
 URxvt.internalBorder:	20
+URxvt*geometry:		110x35
+URxvt*scrollBar:	false
+URxvt*iconFile:		/usr/share/icons/Papirus/64x64@2x/apps/gnome-terminal.svg
 
 # keymappings
 URxvt.iso14755:			true
