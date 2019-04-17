@@ -6,11 +6,8 @@ for sh_variant in bash zsh; do
 	sh_fname=".${sh_variant}rc"
 	if [ "$(egrep -ce '^.*source.*/.shrc' "${sh_fname}")" -eq 0 ]; then
 		echo "${sh_fname} is missing .shrc import: fixing it"
-		cat <<EOF >> "${sh_fname}"
-
-if [ -e "$HOME/.shrc" ]; then
-	source "$HOME/.shrc"
-fi
-EOF
+		sh_fname_insln="$(grep -n -m 1 ^source\  "${sh_fname}" | awk -F':' '{print $1}')"
+		sh_fname_new="$(head -n +"$((sh_fname_insln - 1))" "${sh_fname}"; echo -e 'if [ -e "$HOME/.shrc" ]; then\n\tsource "$HOME/.shrc"\nfi'; tail -n +"${sh_fname_insln}" "${sh_fname}")"
+		echo "${sh_fname_new}" > "${sh_fname}"
 	fi
 done
