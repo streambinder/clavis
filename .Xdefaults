@@ -4,8 +4,8 @@ Xft.antialias:  	true
 Xft.rgba:       	rgb
 Xft.hinting:    	true
 Xft.hintstyle:  	hintfull
-URxvt.font:		xft:Monospace:pixelsize=12
-URxvt.boldfont:		xft:Monospace-Bold:pixelsize=12
+URxvt.font:		xft:Monospace:pixelsize=12,xft:Symbola
+URxvt.boldfont:		xft:Monospace-Bold:pixelsize=12,xft:Symbola
 URxvt.letterSpace:	-1
 URxvt.internalBorder:	20
 URxvt*geometry:		110x35
