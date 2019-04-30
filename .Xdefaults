@@ -13,7 +13,7 @@ URxvt*scrollBar:	false
 URxvt*iconFile:		/usr/share/icons/Papirus/64x64@2x/apps/gnome-terminal.svg
 
 # keymappings
-URxvt.iso14755:			true
+URxvt.iso14755:			false
 URxvt.iso14755_52:		false
 URxvt.keysym.Control-Up:	\033[1;5A
 URxvt.keysym.Control-Down:	\033[1;5B
