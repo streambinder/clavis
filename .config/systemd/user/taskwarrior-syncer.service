@@ -1,0 +1,6 @@
+[Unit]
+Description=TaskWarrior cloud syncer service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/task synchronize

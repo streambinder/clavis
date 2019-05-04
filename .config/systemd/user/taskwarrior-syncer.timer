@@ -1,0 +1,10 @@
+[Unit]
+Description=TaskWarrior cloud syncer timer
+ 
+[Timer]
+Unit=taskwarrior-syncer.service
+OnCalendar=*-*-* *:*:*
+Persistent=true
+ 
+[Install]
+WantedBy=timers.target
