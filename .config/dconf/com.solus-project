@@ -9,20 +9,8 @@ button-layout='appmenu:minimize,maximize,close'
 caffeine-mode=false
 disable-night-light-on-fullscreen=true
 
-[budgie-panel/instance/spacer/{11fc4458-4c9b-11e9-98cb-e4115b5a789b}]
-size=20
-
-[budgie-panel/instance/spacer/{ab6aadf6-4c8b-11e9-93a8-e4115b5a789b}]
-size=35
-
 [budgie-panel/instance/spacer/{05448fc0-4c9d-11e9-b720-e4115b5a789b}]
-size=100
-
-[budgie-panel/instance/spacer/{f867b110-4c9c-11e9-b720-e4115b5a789b}]
-size=100
-
-[budgie-panel/instance/spacer/{eb92f314-4c9c-11e9-b720-e4115b5a789b}]
-size=100
+size=30
 
 [budgie-panel/instance/budgie-menu/{55940c9c-4c8b-11e9-93a8-e4115b5a789b}]
 menu-headers=false
@@ -46,7 +34,17 @@ size=100
 autohide='automatic'
 theme-regions=true
 dock-mode=false
-applets=['eb92f314-4c9c-11e9-b720-e4115b5a789b', 'e4ab64c8-4c9c-11e9-b720-e4115b5a789b', 'ec4b0316-6ff9-11e9-8362-e4115b5a789b', '84878396-4ca7-11e9-b40d-e4115b5a789b', '6dd6028a-4ca7-11e9-b40d-e4115b5a789b', 'cf1dbc6e-4c97-11e9-98cb-e4115b5a789b', 'ab6aadf6-4c8b-11e9-93a8-e4115b5a789b', '05448fc0-4c9d-11e9-b720-e4115b5a789b', 'd819be98-495a-11e9-ad5a-e4115b5a789b', 'f867b110-4c9c-11e9-b720-e4115b5a789b', '11fc4458-4c9b-11e9-98cb-e4115b5a789b']
+applets=['e4ab64c8-4c9c-11e9-b720-e4115b5a789b', 'cf1dbc6e-4c97-11e9-98cb-e4115b5a789b', 'd819be98-495a-11e9-ad5a-e4115b5a789b', '84878396-4ca7-11e9-b40d-e4115b5a789b', 'ec4b0316-6ff9-11e9-8362-e4115b5a789b', '6dd6028a-4ca7-11e9-b40d-e4115b5a789b', '05448fc0-4c9d-11e9-b720-e4115b5a789b']
+
+[budgie-panel/panels/{b7ef5690-6ffd-11e9-aae9-e4115b5a789b}]
+transparency='always'
+enable-shadow=false
+location='bottom'
+size=74
+autohide='automatic'
+theme-regions=false
+dock-mode=false
+applets=['bf35d7bc-6ffd-11e9-aae9-e4115b5a789b']
 
 [budgie-panel]
 dark-theme=true
@@ -55,62 +53,47 @@ layout='solus-fortitude'
 migration-level=1
 confirm-remove-applet=false
 
+[budgie-panel/applets/{bf35d7bc-6ffd-11e9-aae9-e4115b5a789b}]
+position=0
+alignment='start'
+name='User Indicator'
+
 [budgie-panel/applets/{55940c9c-4c8b-11e9-93a8-e4115b5a789b}]
 position=0
 alignment='start'
 name='Budgie Menu'
 
 [budgie-panel/applets/{e4ab64c8-4c9c-11e9-b720-e4115b5a789b}]
-position=0
-alignment='end'
+position=6
+alignment='start'
 name='System Tray'
 
-[budgie-panel/applets/{f867b110-4c9c-11e9-b720-e4115b5a789b}]
-position=5
-alignment='end'
-name='Spacer'
-
 [budgie-panel/applets/{05448fc0-4c9d-11e9-b720-e4115b5a789b}]
-position=4
-alignment='end'
+position=2
+alignment='start'
 name='Spacer'
 
 [budgie-panel/applets/{6dd6028a-4ca7-11e9-b40d-e4115b5a789b}]
-position=3
-alignment='end'
+position=4
+alignment='start'
 name='Places'
 
 [budgie-panel/applets/{cf1dbc6e-4c97-11e9-98cb-e4115b5a789b}]
-position=3
+position=1
 alignment='start'
 name='Calendar'
 
 [budgie-panel/applets/{84878396-4ca7-11e9-b40d-e4115b5a789b}]
-position=2
-alignment='end'
+position=3
+alignment='start'
 name='Status Indicator'
 
 [budgie-panel/applets/{d819be98-495a-11e9-ad5a-e4115b5a789b}]
-position=1
+position=0
 alignment='start'
 name='User Indicator'
 
-[budgie-panel/applets/{ab6aadf6-4c8b-11e9-93a8-e4115b5a789b}]
-position=0
-alignment='start'
-name='Spacer'
-
-[budgie-panel/applets/{eb92f314-4c9c-11e9-b720-e4115b5a789b}]
-position=6
-alignment='end'
-name='Spacer'
-
-[budgie-panel/applets/{11fc4458-4c9b-11e9-98cb-e4115b5a789b}]
-position=2
-alignment='start'
-name='Spacer'
-
 [budgie-panel/applets/{ec4b0316-6ff9-11e9-8362-e4115b5a789b}]
-position=1
-alignment='end'
+position=5
+alignment='start'
 name='Haste'
