@@ -5,3 +5,9 @@ window>box>box.background.budgie-panel>box.horizontal.start-region {
          padding: 0 25px;
          margin: 20px;
 }
+
+VteTerminal, TerminalScreen, vte-terminal {
+    padding: 25px 25px 25px 25px;
+    -VteTerminal-inner-border: 25px 25px 25px 25px;
+}
+
