@@ -1,4 +1,4 @@
 [custom0]
-binding='<Primary><Alt>t'
-command='urxvt'
+command='tilix'
 name='Terminal'
+binding='<Primary><Alt>t'
