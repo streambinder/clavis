@@ -13,8 +13,9 @@ export EDITOR="vi"
 export SUDO_CMDS="eopkg updatedb openvpn solbuild"
 export SVN_EDITOR="$EDITOR"
 export ZSH_THEME="sorin"
+export GOPATH="$HOME/.go"
 # path
-export PATH=$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:$PATH
+export PATH=$HOME/.local/bin:$GOPATH/bin:/usr/local/sbin:/usr/local/bin:$PATH
 
 ## aliases
 # system
