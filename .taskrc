@@ -1,0 +1,15 @@
+# data
+data.location=~/Documenti/IT/Tasks
+
+# synchronization
+taskd.certificate=~/Documenti/IT/Tasks/streambinder.cert.pem
+taskd.key=~/Documenti/IT/Tasks/streambinder.key.pem
+taskd.ca=~/Documenti/IT/Tasks/ca.cert.pem
+taskd.server=vps.davidepucci.it:53589
+taskd.credentials=Public/streambinder/63565824-a642-43d6-bf2c-63c86cf9e777
+
+# theming
+color=off
+report.list.columns=id,depends.indicator,project,tags,recur.indicator,scheduled.countdown,due,until.remaining,description.count
+report.list.labels=ID,D,Project,Tags,R,Sch,Due,Until,Description
+report.list.sort=project+,urgency-
