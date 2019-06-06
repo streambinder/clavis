@@ -4,6 +4,7 @@ window>box>box.background.budgie-panel>box.horizontal.start-region {
          border-radius: 25px;
          padding: 0 25px;
          margin: 20px;
+	 box-shadow: 3px 3px 5px 6px rgba(30, 30, 30, .2);
 }
 
 VteTerminal, TerminalScreen, vte-terminal {
