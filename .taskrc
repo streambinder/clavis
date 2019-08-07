@@ -1,10 +1,10 @@
 # data
-data.location = ~/Documenti/IT/Tasks
+data.location = ~/Documenti/ICT/Tasks
 
 # synchronization
-taskd.certificate = ~/Documenti/IT/Tasks/streambinder.cert.pem
-taskd.key = ~/Documenti/IT/Tasks/streambinder.key.pem
-taskd.ca = ~/Documenti/IT/Tasks/ca.cert.pem
+taskd.certificate = ~/Documenti/ICT/Tasks/streambinder.cert.pem
+taskd.key = ~/Documenti/ICT/Tasks/streambinder.key.pem
+taskd.ca = ~/Documenti/ICT/Tasks/ca.cert.pem
 taskd.server = vps.davidepucci.it:53589
 taskd.credentials = Public/streambinder/63565824-a642-43d6-bf2c-63c86cf9e777
 
