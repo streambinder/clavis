@@ -10,7 +10,7 @@
 # system
 export EDITOR="vi"
 # customizations
-export SUDO_CMDS="eopkg updatedb openvpn solbuild fdisk fastboot"
+export SUDO_CMDS="eopkg updatedb openvpn solbuild fdisk fastboot eject"
 export SVN_EDITOR="$EDITOR"
 export ZSH_THEME="sorin"
 export GOPATH="$HOME/.go"
