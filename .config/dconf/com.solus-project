@@ -3,36 +3,86 @@ confirm-remove-applet=false
 dark-theme=true
 layout='solus-fortitude'
 migration-level=1
-panels=['d7f04090-495a-11e9-ad5a-e4115b5a789b']
+panels=['e07094c2-c4fc-11e9-adb4-7c7a9122c6d0']
 
-[budgie-panel/applets/{05448fc0-4c9d-11e9-b720-e4115b5a789b}]
-alignment='end'
-name='Spacer'
-position=1
+[budgie-panel/applets/{1137285a-c4fd-11e9-adb4-7c7a9122c6d0}]
+alignment='start'
+name='User Indicator'
+position=4
 
 [budgie-panel/applets/{11fc4458-4c9b-11e9-98cb-e4115b5a789b}]
 alignment='start'
 name='Spacer'
 position=2
 
+[budgie-panel/applets/{187a9aca-c4fd-11e9-adb4-7c7a9122c6d0}]
+alignment='start'
+name='Spacer'
+position=1
+
+[budgie-panel/applets/{2cbfc91a-c4fd-11e9-adb4-7c7a9122c6d0}]
+alignment='start'
+name='Clock'
+position=6
+
+[budgie-panel/applets/{3eb6f706-c4fd-11e9-adb4-7c7a9122c6d0}]
+alignment='start'
+name='Separator'
+position=2
+
+[budgie-panel/applets/{4c687a96-c4fd-11e9-adb4-7c7a9122c6d0}]
+alignment='start'
+name='Spacer'
+position=3
+
 [budgie-panel/applets/{55940c9c-4c8b-11e9-93a8-e4115b5a789b}]
 alignment='start'
 name='Budgie Menu'
 position=0
 
-[budgie-panel/applets/{84878396-4ca7-11e9-b40d-e4115b5a789b}]
+[budgie-panel/applets/{6050e9da-c4fd-11e9-adb4-7c7a9122c6d0}]
 alignment='start'
 name='Status Indicator'
-position=1
+position=8
 
-[budgie-panel/applets/{9bc01686-c3fd-11e9-a4fa-7c7a9122c6d0}]
-alignment='end'
-name='Clock'
-position=0
+[budgie-panel/applets/{69eb9a8a-c4fd-11e9-adb4-7c7a9122c6d0}]
+alignment='start'
+name='Spacer'
+position=5
+
+[budgie-panel/applets/{73c6c0fc-c4fd-11e9-adb4-7c7a9122c6d0}]
+alignment='start'
+name='Spacer'
+position=7
+
+[budgie-panel/applets/{867d07ec-c4fd-11e9-adb4-7c7a9122c6d0}]
+alignment='start'
+name='Spacer'
+position=9
+
+[budgie-panel/applets/{8926f430-c4fd-11e9-adb4-7c7a9122c6d0}]
+alignment='start'
+name='Spacer'
+position=11
+
+[budgie-panel/applets/{8bf59fc2-c4fd-11e9-adb4-7c7a9122c6d0}]
+alignment='start'
+name='Separator'
+position=10
+
+[budgie-panel/applets/{a29f949e-c4fd-11e9-adb4-7c7a9122c6d0}]
+alignment='start'
+name='System Tray'
+position=12
 
 [budgie-panel/applets/{ab6aadf6-4c8b-11e9-93a8-e4115b5a789b}]
 alignment='start'
 name='Spacer'
+position=0
+
+[budgie-panel/applets/{be1ab6fa-c4fc-11e9-8416-7c7a9122c6d0}]
+alignment='start'
+name='Budgie Menu'
 position=0
 
 [budgie-panel/applets/{bf35d7bc-6ffd-11e9-aae9-e4115b5a789b}]
@@ -40,20 +90,10 @@ alignment='start'
 name='User Indicator'
 position=0
 
-[budgie-panel/applets/{cc2dc3b8-c3fd-11e9-a4fa-7c7a9122c6d0}]
-alignment='center'
-name='Budgie Menu'
-position=0
-
 [budgie-panel/applets/{cf1dbc6e-4c97-11e9-98cb-e4115b5a789b}]
 alignment='start'
 name='Calendar'
 position=1
-
-[budgie-panel/applets/{d819be98-495a-11e9-ad5a-e4115b5a789b}]
-alignment='end'
-name='User Indicator'
-position=2
 
 [budgie-panel/applets/{d850dbc2-c3fc-11e9-bb94-7c7a9122c6d0}]
 alignment='start'
@@ -95,11 +135,6 @@ alignment='end'
 name='Raven Trigger'
 position=5
 
-[budgie-panel/applets/{e4ab64c8-4c9c-11e9-b720-e4115b5a789b}]
-alignment='start'
-name='System Tray'
-position=5
-
 [budgie-panel/applets/{eb92f314-4c9c-11e9-b720-e4115b5a789b}]
 alignment='end'
 name='Spacer'
@@ -109,6 +144,11 @@ position=5
 alignment='start'
 name='Haste'
 position=5
+
+[budgie-panel/applets/{f0d0a866-c4fc-11e9-adb4-7c7a9122c6d0}]
+alignment='start'
+name='Budgie Menu'
+position=0
 
 [budgie-panel/applets/{f867b110-4c9c-11e9-b720-e4115b5a789b}]
 alignment='end'
@@ -120,19 +160,39 @@ enable-menu-label=false
 menu-headers=false
 menu-icon=''
 
-[budgie-panel/instance/budgie-menu/{cc2dc3b8-c3fd-11e9-a4fa-7c7a9122c6d0}]
+[budgie-panel/instance/budgie-menu/{be1ab6fa-c4fc-11e9-8416-7c7a9122c6d0}]
 enable-menu-label=true
-menu-categories-hover=true
+menu-icon=''
+menu-label=': :'
+
+[budgie-panel/instance/budgie-menu/{f0d0a866-c4fc-11e9-adb4-7c7a9122c6d0}]
+enable-menu-label=true
+menu-categories-hover=false
 menu-compact=true
 menu-headers=true
 menu-icon=''
-menu-label=' : :'
-
-[budgie-panel/instance/spacer/{05448fc0-4c9d-11e9-b720-e4115b5a789b}]
-size=25
+menu-label=': :'
 
 [budgie-panel/instance/spacer/{11fc4458-4c9b-11e9-98cb-e4115b5a789b}]
 size=20
+
+[budgie-panel/instance/spacer/{187a9aca-c4fd-11e9-adb4-7c7a9122c6d0}]
+size=10
+
+[budgie-panel/instance/spacer/{4c687a96-c4fd-11e9-adb4-7c7a9122c6d0}]
+size=15
+
+[budgie-panel/instance/spacer/{69eb9a8a-c4fd-11e9-adb4-7c7a9122c6d0}]
+size=10
+
+[budgie-panel/instance/spacer/{73c6c0fc-c4fd-11e9-adb4-7c7a9122c6d0}]
+size=15
+
+[budgie-panel/instance/spacer/{867d07ec-c4fd-11e9-adb4-7c7a9122c6d0}]
+size=15
+
+[budgie-panel/instance/spacer/{8926f430-c4fd-11e9-adb4-7c7a9122c6d0}]
+size=15
 
 [budgie-panel/instance/spacer/{ab6aadf6-4c8b-11e9-93a8-e4115b5a789b}]
 size=35
@@ -152,6 +212,16 @@ location='left'
 size=16
 transparency='always'
 
+[budgie-panel/panels/{aa43662c-c4fc-11e9-8416-7c7a9122c6d0}]
+applets=['be1ab6fa-c4fc-11e9-8416-7c7a9122c6d0']
+autohide='automatic'
+dock-mode=false
+enable-shadow=false
+location='bottom'
+size=39
+theme-regions=false
+transparency='always'
+
 [budgie-panel/panels/{b7ef5690-6ffd-11e9-aae9-e4115b5a789b}]
 applets=['bf35d7bc-6ffd-11e9-aae9-e4115b5a789b']
 autohide='automatic'
@@ -162,21 +232,19 @@ size=74
 theme-regions=false
 transparency='always'
 
-[budgie-panel/panels/{d7f04090-495a-11e9-ad5a-e4115b5a789b}]
-applets=['9bc01686-c3fd-11e9-a4fa-7c7a9122c6d0', 'cc2dc3b8-c3fd-11e9-a4fa-7c7a9122c6d0', 'd819be98-495a-11e9-ad5a-e4115b5a789b', '84878396-4ca7-11e9-b40d-e4115b5a789b', 'e4ab64c8-4c9c-11e9-b720-e4115b5a789b', '05448fc0-4c9d-11e9-b720-e4115b5a789b']
-autohide='automatic'
-dock-mode=false
-enable-shadow=false
-location='bottom'
-size=100
-theme-regions=true
-transparency='always'
-
 [budgie-panel/panels/{d84fbd64-c3fc-11e9-bb94-7c7a9122c6d0}]
 applets=['d85b654c-c3fc-11e9-bb94-7c7a9122c6d0', 'd860a5b6-c3fc-11e9-bb94-7c7a9122c6d0', 'd850dbc2-c3fc-11e9-bb94-7c7a9122c6d0', 'd85be2e2-c3fc-11e9-bb94-7c7a9122c6d0', 'd86120c2-c3fc-11e9-bb94-7c7a9122c6d0', 'd85dbe78-c3fc-11e9-bb94-7c7a9122c6d0', 'd86053b8-c3fc-11e9-bb94-7c7a9122c6d0', 'd8534fba-c3fc-11e9-bb94-7c7a9122c6d0']
 location='bottom'
 size=39
 transparency='none'
+
+[budgie-panel/panels/{e07094c2-c4fc-11e9-adb4-7c7a9122c6d0}]
+applets=['8926f430-c4fd-11e9-adb4-7c7a9122c6d0', 'f0d0a866-c4fc-11e9-adb4-7c7a9122c6d0', '4c687a96-c4fd-11e9-adb4-7c7a9122c6d0', '69eb9a8a-c4fd-11e9-adb4-7c7a9122c6d0', 'a29f949e-c4fd-11e9-adb4-7c7a9122c6d0', '867d07ec-c4fd-11e9-adb4-7c7a9122c6d0', '1137285a-c4fd-11e9-adb4-7c7a9122c6d0', '2cbfc91a-c4fd-11e9-adb4-7c7a9122c6d0', '187a9aca-c4fd-11e9-adb4-7c7a9122c6d0', '3eb6f706-c4fd-11e9-adb4-7c7a9122c6d0', '6050e9da-c4fd-11e9-adb4-7c7a9122c6d0', '8bf59fc2-c4fd-11e9-adb4-7c7a9122c6d0', '73c6c0fc-c4fd-11e9-adb4-7c7a9122c6d0']
+autohide='automatic'
+enable-shadow=false
+location='bottom'
+size=100
+transparency='always'
 
 [budgie-raven]
 allow-volume-overdrive=true
@@ -190,4 +258,4 @@ disable-night-light-on-fullscreen=true
 edge-tiling=true
 
 [software-center]
-last-checked=int64 1566383815
+last-checked=int64 1566492963
