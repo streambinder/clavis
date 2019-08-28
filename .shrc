@@ -24,5 +24,6 @@ alias grep="grep --color=auto"
 alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
 # customizations
-alias vi="vim"
+alias npm="npm -g"
 alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias vi="vim"
