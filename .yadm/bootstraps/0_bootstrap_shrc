@@ -2,7 +2,7 @@
 
 cd "$HOME"
 
-for sh_variant in bash zsh; do
+for sh_variant in zsh; do
 	sh_fname=".${sh_variant}rc"
 	if [ "$(egrep -ce '^.*source.*/.shrc' "${sh_fname}")" -eq 0 ]; then
 		echo "${sh_fname} is missing .shrc import: fixing it"
