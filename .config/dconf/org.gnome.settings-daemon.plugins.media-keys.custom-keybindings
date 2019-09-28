@@ -1,4 +1,0 @@
-[custom0]
-command='tilix'
-name='Terminal'
-binding='<Primary><Alt>t'
