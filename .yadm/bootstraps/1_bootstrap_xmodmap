@@ -1,6 +1,0 @@
-#!/bin/bash
-
-cd "$HOME"
-
-echo "Applying custom .Xmodmap"
-systemctl --user start xmodmap || systemctl --user restart xmodmap
