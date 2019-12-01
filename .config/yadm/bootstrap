@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd "$HOME/.yadm"
+cd "$HOME/.config/yadm"
 
 for bootstrap_fname in bootstraps/[0-9]_bootstrap_*; do
 	echo "Trigger sub bootstrap script ${bootstrap_fname}"
