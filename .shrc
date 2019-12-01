@@ -11,7 +11,7 @@
 # system
 export EDITOR="vi"
 # customizations
-export SUDO_CMDS="eopkg updatedb openvpn solbuild fdisk fastboot eject apt apt-get dpkg"
+export SUDO_CMDS="eopkg updatedb openvpn solbuild fdisk fastboot eject apt apt-get"
 export SVN_EDITOR="$EDITOR"
 export ZSH_THEME="sorin"
 export GOPATH="$HOME/.go"
