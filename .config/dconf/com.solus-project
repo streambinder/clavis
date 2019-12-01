@@ -25,6 +25,11 @@ alignment='start'
 name='Clock'
 position=6
 
+[budgie-panel/applets/{38cccb72-1426-11ea-8a71-7c7a9122c6d0}]
+alignment='start'
+name='Places'
+position=9
+
 [budgie-panel/applets/{3eb6f706-c4fd-11e9-adb4-7c7a9122c6d0}]
 alignment='start'
 name='Separator'
@@ -58,22 +63,22 @@ position=7
 [budgie-panel/applets/{867d07ec-c4fd-11e9-adb4-7c7a9122c6d0}]
 alignment='start'
 name='Spacer'
-position=9
+position=10
 
 [budgie-panel/applets/{8926f430-c4fd-11e9-adb4-7c7a9122c6d0}]
 alignment='start'
 name='Spacer'
-position=11
+position=12
 
 [budgie-panel/applets/{8bf59fc2-c4fd-11e9-adb4-7c7a9122c6d0}]
 alignment='start'
 name='Separator'
-position=10
+position=11
 
 [budgie-panel/applets/{a29f949e-c4fd-11e9-adb4-7c7a9122c6d0}]
 alignment='start'
 name='System Tray'
-position=12
+position=13
 
 [budgie-panel/applets/{ab6aadf6-4c8b-11e9-93a8-e4115b5a789b}]
 alignment='start'
@@ -89,6 +94,46 @@ position=0
 alignment='start'
 name='User Indicator'
 position=0
+
+[budgie-panel/applets/{c8cbebc0-141e-11ea-84f0-d166d00df7d4}]
+alignment='start'
+name='Budgie Menu'
+position=0
+
+[budgie-panel/applets/{c8cfeaa4-141e-11ea-84f0-d166d00df7d4}]
+alignment='start'
+name='Icon Task List'
+position=1
+
+[budgie-panel/applets/{c8e37074-141e-11ea-84f0-d166d00df7d4}]
+alignment='end'
+name='System Tray'
+position=0
+
+[budgie-panel/applets/{c8e3e568-141e-11ea-84f0-d166d00df7d4}]
+alignment='end'
+name='Notifications'
+position=1
+
+[budgie-panel/applets/{c8e81ce6-141e-11ea-84f0-d166d00df7d4}]
+alignment='end'
+name='Status Indicator'
+position=2
+
+[budgie-panel/applets/{c8ebbbc6-141e-11ea-84f0-d166d00df7d4}]
+alignment='end'
+name='User Indicator'
+position=3
+
+[budgie-panel/applets/{c8ee111e-141e-11ea-84f0-d166d00df7d4}]
+alignment='end'
+name='Clock'
+position=4
+
+[budgie-panel/applets/{c8efffd8-141e-11ea-84f0-d166d00df7d4}]
+alignment='end'
+name='Raven Trigger'
+position=5
 
 [budgie-panel/applets/{cf1dbc6e-4c97-11e9-98cb-e4115b5a789b}]
 alignment='start'
@@ -173,6 +218,13 @@ menu-headers=true
 menu-icon=''
 menu-label=': :'
 
+[budgie-panel/instance/icon-tasklist/{c8cfeaa4-141e-11ea-84f0-d166d00df7d4}]
+pinned-launchers=['solus-sc.desktop', 'org.gnome.Nautilus.desktop', 'io.github.GnomeMpv.desktop', 'rhythmbox.desktop']
+
+[budgie-panel/instance/places-indicator/{38cccb72-1426-11ea-8a71-7c7a9122c6d0}]
+expand-places=true
+show-networks=false
+
 [budgie-panel/instance/spacer/{11fc4458-4c9b-11e9-98cb-e4115b5a789b}]
 size=20
 
@@ -232,6 +284,12 @@ size=74
 theme-regions=false
 transparency='always'
 
+[budgie-panel/panels/{c8c8deb2-141e-11ea-84f0-d166d00df7d4}]
+applets=['c8cfeaa4-141e-11ea-84f0-d166d00df7d4', 'c8cbebc0-141e-11ea-84f0-d166d00df7d4', 'c8efffd8-141e-11ea-84f0-d166d00df7d4', 'c8e37074-141e-11ea-84f0-d166d00df7d4', 'c8ebbbc6-141e-11ea-84f0-d166d00df7d4', 'c8e3e568-141e-11ea-84f0-d166d00df7d4', 'c8ee111e-141e-11ea-84f0-d166d00df7d4', 'c8e81ce6-141e-11ea-84f0-d166d00df7d4']
+location='bottom'
+size=39
+transparency='none'
+
 [budgie-panel/panels/{d84fbd64-c3fc-11e9-bb94-7c7a9122c6d0}]
 applets=['d85b654c-c3fc-11e9-bb94-7c7a9122c6d0', 'd860a5b6-c3fc-11e9-bb94-7c7a9122c6d0', 'd850dbc2-c3fc-11e9-bb94-7c7a9122c6d0', 'd85be2e2-c3fc-11e9-bb94-7c7a9122c6d0', 'd86120c2-c3fc-11e9-bb94-7c7a9122c6d0', 'd85dbe78-c3fc-11e9-bb94-7c7a9122c6d0', 'd86053b8-c3fc-11e9-bb94-7c7a9122c6d0', 'd8534fba-c3fc-11e9-bb94-7c7a9122c6d0']
 location='bottom'
@@ -239,7 +297,7 @@ size=39
 transparency='none'
 
 [budgie-panel/panels/{e07094c2-c4fc-11e9-adb4-7c7a9122c6d0}]
-applets=['8926f430-c4fd-11e9-adb4-7c7a9122c6d0', 'f0d0a866-c4fc-11e9-adb4-7c7a9122c6d0', '4c687a96-c4fd-11e9-adb4-7c7a9122c6d0', '69eb9a8a-c4fd-11e9-adb4-7c7a9122c6d0', 'a29f949e-c4fd-11e9-adb4-7c7a9122c6d0', '867d07ec-c4fd-11e9-adb4-7c7a9122c6d0', '1137285a-c4fd-11e9-adb4-7c7a9122c6d0', '2cbfc91a-c4fd-11e9-adb4-7c7a9122c6d0', '187a9aca-c4fd-11e9-adb4-7c7a9122c6d0', '3eb6f706-c4fd-11e9-adb4-7c7a9122c6d0', '6050e9da-c4fd-11e9-adb4-7c7a9122c6d0', '8bf59fc2-c4fd-11e9-adb4-7c7a9122c6d0', '73c6c0fc-c4fd-11e9-adb4-7c7a9122c6d0']
+applets=['8926f430-c4fd-11e9-adb4-7c7a9122c6d0', 'f0d0a866-c4fc-11e9-adb4-7c7a9122c6d0', '38cccb72-1426-11ea-8a71-7c7a9122c6d0', '4c687a96-c4fd-11e9-adb4-7c7a9122c6d0', '69eb9a8a-c4fd-11e9-adb4-7c7a9122c6d0', 'a29f949e-c4fd-11e9-adb4-7c7a9122c6d0', '867d07ec-c4fd-11e9-adb4-7c7a9122c6d0', '1137285a-c4fd-11e9-adb4-7c7a9122c6d0', '2cbfc91a-c4fd-11e9-adb4-7c7a9122c6d0', '187a9aca-c4fd-11e9-adb4-7c7a9122c6d0', '3eb6f706-c4fd-11e9-adb4-7c7a9122c6d0', '6050e9da-c4fd-11e9-adb4-7c7a9122c6d0', '8bf59fc2-c4fd-11e9-adb4-7c7a9122c6d0', '73c6c0fc-c4fd-11e9-adb4-7c7a9122c6d0']
 autohide='automatic'
 enable-shadow=false
 location='bottom'
