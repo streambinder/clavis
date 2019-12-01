@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cd "$HOME/.config/dconf"
+
+ls | egrep -e '^(com|org|net|us|co|int|mil|edu|gov|ca|cn|fr|ch|au|in|de|jp|nl|uk|mx|no|ru|br|se|es|biz|info|jobs|mobi|name|ly|tel|kitchen|email|tech|estate|xyz|codes|bargains|bid|expert)\.[a-zA-Z0-9]+' | while read dconf_fname; do
+	dconf_entry="/$(sed 's/\./\//g' <<< "${dconf_fname}")/"
+	echo "Loading ${dconf_fname} into ${dconf_entry} entry"
+	dconf load "${dconf_entry}" < "${dconf_fname}"
+done
