@@ -63,22 +63,22 @@ position=7
 [budgie-panel/applets/{867d07ec-c4fd-11e9-adb4-7c7a9122c6d0}]
 alignment='start'
 name='Spacer'
-position=10
+position=11
 
 [budgie-panel/applets/{8926f430-c4fd-11e9-adb4-7c7a9122c6d0}]
 alignment='start'
 name='Spacer'
-position=12
+position=13
 
 [budgie-panel/applets/{8bf59fc2-c4fd-11e9-adb4-7c7a9122c6d0}]
 alignment='start'
 name='Separator'
-position=11
+position=12
 
 [budgie-panel/applets/{a29f949e-c4fd-11e9-adb4-7c7a9122c6d0}]
 alignment='start'
 name='System Tray'
-position=13
+position=14
 
 [budgie-panel/applets/{ab6aadf6-4c8b-11e9-93a8-e4115b5a789b}]
 alignment='start'
@@ -190,6 +190,11 @@ alignment='start'
 name='Haste'
 position=5
 
+[budgie-panel/applets/{ec51e84c-1455-11ea-8da6-7c7a9122c6d0}]
+alignment='start'
+name='Night Light'
+position=10
+
 [budgie-panel/applets/{f0d0a866-c4fc-11e9-adb4-7c7a9122c6d0}]
 alignment='start'
 name='Budgie Menu'
@@ -297,7 +302,7 @@ size=39
 transparency='none'
 
 [budgie-panel/panels/{e07094c2-c4fc-11e9-adb4-7c7a9122c6d0}]
-applets=['8926f430-c4fd-11e9-adb4-7c7a9122c6d0', 'f0d0a866-c4fc-11e9-adb4-7c7a9122c6d0', '38cccb72-1426-11ea-8a71-7c7a9122c6d0', '4c687a96-c4fd-11e9-adb4-7c7a9122c6d0', '69eb9a8a-c4fd-11e9-adb4-7c7a9122c6d0', 'a29f949e-c4fd-11e9-adb4-7c7a9122c6d0', '867d07ec-c4fd-11e9-adb4-7c7a9122c6d0', '1137285a-c4fd-11e9-adb4-7c7a9122c6d0', '2cbfc91a-c4fd-11e9-adb4-7c7a9122c6d0', '187a9aca-c4fd-11e9-adb4-7c7a9122c6d0', '3eb6f706-c4fd-11e9-adb4-7c7a9122c6d0', '6050e9da-c4fd-11e9-adb4-7c7a9122c6d0', '8bf59fc2-c4fd-11e9-adb4-7c7a9122c6d0', '73c6c0fc-c4fd-11e9-adb4-7c7a9122c6d0']
+applets=['8926f430-c4fd-11e9-adb4-7c7a9122c6d0', 'f0d0a866-c4fc-11e9-adb4-7c7a9122c6d0', 'ec51e84c-1455-11ea-8da6-7c7a9122c6d0', '8bf59fc2-c4fd-11e9-adb4-7c7a9122c6d0', '4c687a96-c4fd-11e9-adb4-7c7a9122c6d0', '69eb9a8a-c4fd-11e9-adb4-7c7a9122c6d0', 'a29f949e-c4fd-11e9-adb4-7c7a9122c6d0', '867d07ec-c4fd-11e9-adb4-7c7a9122c6d0', '38cccb72-1426-11ea-8a71-7c7a9122c6d0', '1137285a-c4fd-11e9-adb4-7c7a9122c6d0', '2cbfc91a-c4fd-11e9-adb4-7c7a9122c6d0', '3eb6f706-c4fd-11e9-adb4-7c7a9122c6d0', '6050e9da-c4fd-11e9-adb4-7c7a9122c6d0', '187a9aca-c4fd-11e9-adb4-7c7a9122c6d0', '73c6c0fc-c4fd-11e9-adb4-7c7a9122c6d0']
 autohide='automatic'
 enable-shadow=false
 location='bottom'
@@ -316,4 +321,4 @@ disable-night-light-on-fullscreen=true
 edge-tiling=true
 
 [software-center]
-last-checked=int64 1566492963
+last-checked=int64 1575216783
