@@ -27,5 +27,4 @@ alias fgrep="fgrep --color=auto"
 # customizations
 alias npm="npm -g"
 alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias update="apt update -y && apt upgrade -y && apt dist-upgrade -y && apt autoremove -y"
 alias vi="vim"
