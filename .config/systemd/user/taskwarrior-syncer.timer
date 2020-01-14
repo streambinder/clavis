@@ -3,7 +3,7 @@ Description=TaskWarrior cloud syncer timer
  
 [Timer]
 Unit=taskwarrior-syncer.service
-OnCalendar=*-*-* *:*:*
+OnCalendar=*-*-* *:*:00
 Persistent=true
  
 [Install]
