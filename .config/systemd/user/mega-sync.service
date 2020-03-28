@@ -1,0 +1,6 @@
+[Unit]
+Description=MEGA sync service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/mega-cmd-server
