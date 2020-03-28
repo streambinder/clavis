@@ -1,3 +1,4 @@
 .config/cuppa
+.ssh/id_rsa*
 .shrc_secure
 .taskrc
