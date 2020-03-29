@@ -1,4 +1,5 @@
-.config/cuppa
+.config/solbump
+.config/spotitube
 .ssh/id_rsa*
 .shrc_secure
 .taskrc
