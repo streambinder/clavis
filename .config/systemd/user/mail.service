@@ -1,11 +1,6 @@
 [Unit]
 Description=Mail service
-Wants=network-online.target
-After=network.target network-online.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/geary --hidden
-
-[Install]
-WantedBy=multi-user.target
+ExecStart=/bin/bash -c '/bin/pgrep geary || /usr/bin/geary --hidden'

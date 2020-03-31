@@ -1,0 +1,10 @@
+[Unit]
+Description=Mail client timer
+ 
+[Timer]
+Unit=mail.service
+OnCalendar=*-*-* *:*:00
+Persistent=true
+ 
+[Install]
+WantedBy=timers.target
