@@ -1,11 +1,6 @@
 [Unit]
 Description=MEGA sync service
-Wants=network-online.target
-After=network.target network-online.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/mega-cmd-server
-
-[Install]
-WantedBy=multi-user.target
+ExecStart=/bin/bash -c '/bin/pgrep mega-cmd-server || /usr/bin/mega-cmd-server'

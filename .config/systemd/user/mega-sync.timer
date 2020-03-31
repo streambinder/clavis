@@ -1,0 +1,10 @@
+[Unit]
+Description=MEGA sync timer
+ 
+[Timer]
+Unit=mega-sync.service
+OnCalendar=*-*-* *:*:00
+Persistent=true
+ 
+[Install]
+WantedBy=timers.target
