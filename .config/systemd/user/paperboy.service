@@ -1,0 +1,6 @@
+[Unit]
+Description=PaperBoy service
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/paperboy -c  %h/.config/paperboy
