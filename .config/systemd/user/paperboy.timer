@@ -3,7 +3,7 @@ Description=PaperBoy timer
  
 [Timer]
 Unit=paperboy.service
-OnCalendar=*-*-* *:00/5
+OnCalendar=*-*-* *:*:00
 Persistent=true
  
 [Install]
