@@ -1,6 +1,0 @@
-[Unit]
-Description=Mail service
-
-[Service]
-Type=simple
-ExecStart=/bin/bash -c '/bin/pgrep geary || /usr/bin/geary --hidden'
