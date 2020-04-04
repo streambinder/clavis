@@ -3,4 +3,4 @@ Description=Wal configuration files flusher service
 
 [Service]
 Type=simple
-ExecStart=/bin/bash %h/.config/systemd/user/wal-flusher.sh
+ExecStart=bash %h/.config/systemd/user/wal-flusher.sh

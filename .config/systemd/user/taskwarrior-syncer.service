@@ -3,4 +3,4 @@ Description=TaskWarrior cloud syncer service
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/timeout -k1 2 /usr/bin/task synchronize
+ExecStart=timeout -k1 2 task synchronize

@@ -3,4 +3,4 @@ Description=PaperBoy service
 
 [Service]
 Type=simple
-ExecStart=%h/.local/bin/paperboy -c  %h/.config/paperboy
+ExecStart=paperboy -c  %h/.config/paperboy

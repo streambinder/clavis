@@ -3,4 +3,4 @@ Description=MEGA sync service
 
 [Service]
 Type=simple
-ExecStart=/bin/bash -c '/bin/pgrep mega-cmd-server || /usr/bin/mega-cmd-server'
+ExecStart=bash -c 'pgrep mega-cmd-server || mega-cmd-server'

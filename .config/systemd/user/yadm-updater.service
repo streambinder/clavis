@@ -5,4 +5,4 @@ After=network.target network-online.target
 
 [Service]
 Type=simple
-ExecStart=/bin/bash %h/.config/systemd/user/yadm-updater.sh
+ExecStart=bash %h/.config/systemd/user/yadm-updater.sh
