@@ -1,7 +1,6 @@
 #!/bin/sh
 
 # external imports
-[ -f /usr/share/defaults/etc/profile.d/vte.sh ] && source /usr/share/defaults/etc/profile.d/vte.sh
 [ -f ${HOME}/.shrc_secure ] && source "${HOME}/.shrc_secure"
 [ -f ${HOME}/.shrc_sudo ] && source "${HOME}/.shrc_sudo"
 [ -f ${HOME}/.shrc_local ] && source "${HOME}/.shrc_local"

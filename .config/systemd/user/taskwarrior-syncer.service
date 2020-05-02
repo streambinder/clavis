@@ -1,6 +1,0 @@
-[Unit]
-Description=TaskWarrior cloud syncer service
-
-[Service]
-Type=simple
-ExecStart=timeout -k1 2 task synchronize
