@@ -1,5 +1,3 @@
-#!/bin/bash
-
 cd "$HOME/.config/yadm"
 
 for bootstrap_fname in bootstraps/[0-9]_bootstrap_*; do
