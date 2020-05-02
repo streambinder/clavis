@@ -2,7 +2,6 @@
 
 # external imports
 [ -f ${HOME}/.shrc_secure ] && source "${HOME}/.shrc_secure"
-[ -f ${HOME}/.shrc_sudo ] && source "${HOME}/.shrc_sudo"
 [ -f ${HOME}/.shrc_local ] && source "${HOME}/.shrc_local"
 [ -d ${HOME}/.cache/wal ] && (cat ~/.cache/wal/sequences &)
 
@@ -10,7 +9,6 @@
 # system
 export EDITOR="vi"
 # customizations
-export SUDO_CMDS="eopkg updatedb openvpn solbuild fdisk fastboot eject"
 export SVN_EDITOR="$EDITOR"
 export ZSH_THEME="sorin"
 export GOPATH="$HOME/.go"
