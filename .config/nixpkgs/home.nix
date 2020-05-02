@@ -30,12 +30,17 @@
       enable = true;
       theme = "sorin";
     };
+    initExtra = "source $HOME/.shrc";
   };
 
   programs.git = {
     enable = true;
     userName = "streambinder";
     userEmail = "posta@davidepucci.it";
+  };
+
+  services.gpg-agent = {
+      enable = true;
   };
 
 }
