@@ -32,6 +32,7 @@
   environment.systemPackages = with pkgs; [
     git
     go
+    ntfs3g
     python39
     vim
     wget
