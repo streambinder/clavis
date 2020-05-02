@@ -6,22 +6,22 @@
 
   home.stateVersion = "20.03";
 
-  home.packages = [
-    pkgs.brave
-    pkgs.ffmpeg
-    pkgs.gimp
-    pkgs.gnome3.gnome-tweaks
-    pkgs.gnupg
-    pkgs.keepassxc
-    pkgs.imagemagick
-    pkgs.megacmd
-    pkgs.spotify
-    pkgs.tdesktop
-    pkgs.tilix
-    pkgs.unzip
-    pkgs.vscodium
-    pkgs.yadm
-    pkgs.youtube-dl
+  home.packages = with pkgs; [
+    brave
+    ffmpeg
+    gimp
+    gnome3.gnome-tweaks
+    gnupg
+    keepassxc
+    imagemagick
+    megacmd
+    spotify
+    tdesktop
+    tilix
+    unzip
+    vscodium
+    yadm
+    youtube-dl
   ];
 
   programs.zsh = {

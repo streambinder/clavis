@@ -42,15 +42,15 @@
   services.gnome3.sushi.enable = false;
   services.gnome3.tracker.enable = false;
   services.gnome3.tracker-miners.enable = false;
-  environment.gnome3.excludePackages = [
-    pkgs.gnome3.epiphany
-    pkgs.gnome3.geary
-    pkgs.gnome3.gnome-characters
-    pkgs.gnome3.gnome-getting-started-docs
-    pkgs.gnome3.gnome-software
-    pkgs.gnome3.gnome-terminal
-    pkgs.gnome3.gnome-weather
-    pkgs.gnome3.simple-scan
+  environment.gnome3.excludePackages = with pkgs.gnome3; [
+    epiphany
+    geary
+    gnome-characters
+    gnome-getting-started-docs
+    gnome-software
+    gnome-terminal
+    gnome-weather
+    simple-scan
   ];
 
   # Mouse
