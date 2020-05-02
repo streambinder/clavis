@@ -1,18 +1,18 @@
 [/]
-use-tabs=false
-terminal-title-show-when-single=false
-warn-vte-config-issue=false
+app-title='${appName}'
+quake-specific-monitor=0
 tab-position='top'
+terminal-title-show-when-single=false
 theme-variant='dark'
 unsafe-paste-alert=false
-quake-specific-monitor=0
-app-title='${appName}'
+use-tabs=false
+warn-vte-config-issue=false
 window-style='disable-csd-hide-toolbar'
 
 [profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d]
-default-size-rows=35
-terminal-title='# ${id}'
-font='Monospace 10'
-use-system-font=false
 default-size-columns=170
+default-size-rows=35
+font='Monospace 12'
+terminal-title='# ${id}'
+use-system-font=false
 visible-name='streambinder'
