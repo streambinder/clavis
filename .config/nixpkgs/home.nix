@@ -11,6 +11,7 @@
     pkgs.ffmpeg
     pkgs.gimp
     pkgs.gnome3.gnome-tweaks
+    pkgs.gnupg
     pkgs.keepassxc
     pkgs.imagemagick
     pkgs.megacmd
