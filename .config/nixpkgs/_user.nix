@@ -86,6 +86,13 @@
 
     services.gpg-agent = { enable = true; };
 
+    home.file.".config/gtk-3.0/gtk.css".text = ''
+      VteTerminal, TerminalScreen, vte-terminal {
+          padding: 25px 25px 25px 25px;
+          -VteTerminal-inner-border: 25px 25px 25px 25px;
+      }
+    '';
+
     home.file.".config/systemd/user/wal-flusher.sh".text = ''
       cd "$HOME"
 
@@ -178,7 +185,6 @@
           };
           Install = { WantedBy = [ "timers.target" ]; };
         };
-
       };
     };
   };
