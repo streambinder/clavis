@@ -86,6 +86,32 @@
 
     services.gpg-agent = { enable = true; };
 
+    home.file.".shrc".text = ''
+      # external imports
+      [ -f $HOME/.shrc_secure ] && source "$HOME/.shrc_secure"
+      [ -d $HOME/.cache/wal ] && (cat ~/.cache/wal/sequences &)
+
+      ## exports
+      # system
+      export EDITOR="vi"
+      # customizations
+      export SVN_EDITOR="$EDITOR"
+      export GOPATH="$HOME/.go"
+      # path
+      export PATH=$HOME/.local/bin:$GOPATH/bin:$HOME/.npm/bin:/usr/local/sbin:/usr/local/bin:$PATH
+
+      ## aliases
+      # system
+      alias ls="ls --color=auto"
+      alias grep="grep --color=auto"
+      alias egrep="egrep --color=auto"
+      alias fgrep="fgrep --color=auto"
+      # customizations
+      alias npm="npm -g"
+      alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
+      alias vi="vim"
+    '';
+
     home.file.".config/gtk-3.0/gtk.css".text = ''
       VteTerminal, TerminalScreen, vte-terminal {
           padding: 25px 25px 25px 25px;
