@@ -3,22 +3,13 @@
 {
   system.stateVersion = "20.03";
 
-  imports = [ ./hardware-configuration.nix <home-manager/nixos> ];
-
-  # Boot
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.initrd.luks.devices.root = {
-    device = "/dev/sda3";
-    preLVM = true;
-  };
+  imports = [
+    # user
+    ./_user.nix
+  ];
 
   # Networking
-  networking.hostName = "crow";
   networking.useDHCP = false;
-  networking.interfaces.enp0s25.useDHCP = true;
-  networking.interfaces.wlp3s0.useDHCP = true;
   networking.networkmanager.enable = true;
 
   # Timezone
@@ -34,6 +25,7 @@
     wget
     zsh
   ];
+  nixpkgs.config.allowUnfree = true;
   programs.seahorse.enable = false;
   services.gnome3.sushi.enable = false;
   services.gnome3.tracker.enable = false;
@@ -67,19 +59,5 @@
     xkbOptions = "alt-intl";
   };
   console.useXkbConfig = true;
-
-  # Users
-  users.extraUsers.streambinder = {
-    name = "streambinder";
-    description = "Davide Pucci";
-    group = "users";
-    isNormalUser = true;
-    extraGroups =
-      [ "wheel" "disk" "audio" "video" "networkmanager" "systemd-journal" ];
-    createHome = true;
-    uid = 1000;
-    home = "/home/streambinder";
-    shell = "/run/current-system/sw/bin/zsh";
-  };
 
 }
