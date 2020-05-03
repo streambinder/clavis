@@ -17,6 +17,7 @@
 
   # System packages
   environment.systemPackages = with pkgs; [
+    binutils
     git
     go
     ntfs3g
