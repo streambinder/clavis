@@ -27,17 +27,18 @@
     zsh
   ];
   programs.seahorse.enable = false;
+  programs.geary.enable = false;
   services.gnome3.sushi.enable = false;
   services.gnome3.tracker.enable = false;
   services.gnome3.tracker-miners.enable = false;
-  environment.gnome3.excludePackages = with pkgs.gnome3; [
+  environment.gnome3.excludePackages = with pkgs; [
     epiphany
-    geary
-    gnome-characters
-    gnome-getting-started-docs
-    gnome-software
-    gnome-weather
+    gnome3.gnome-characters
+    gnome3.gnome-getting-started-docs
+    gnome3.gnome-software
+    gnome3.gnome-weather
     simple-scan
+    xterm
   ];
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [ (import ./_pkgs) ];
