@@ -3,11 +3,7 @@
 {
   system.stateVersion = "20.03";
 
-  imports =
-    [
-      ./hardware-configuration.nix
-      <home-manager/nixos> 
-    ];
+  imports = [ ./hardware-configuration.nix <home-manager/nixos> ];
 
   # Boot
   boot.loader.systemd-boot.enable = true;
@@ -48,7 +44,6 @@
     gnome-characters
     gnome-getting-started-docs
     gnome-software
-    gnome-terminal
     gnome-weather
     simple-scan
   ];
@@ -79,14 +74,8 @@
     description = "Davide Pucci";
     group = "users";
     isNormalUser = true;
-    extraGroups = [
-      "wheel"
-      "disk"
-      "audio"
-      "video"
-      "networkmanager"
-      "systemd-journal"
-    ];
+    extraGroups =
+      [ "wheel" "disk" "audio" "video" "networkmanager" "systemd-journal" ];
     createHome = true;
     uid = 1000;
     home = "/home/streambinder";

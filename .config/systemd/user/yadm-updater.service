@@ -1,8 +1,0 @@
-[Unit]
-Description=YADM config updater service
-Wants=network-online.target
-After=network.target network-online.target
-
-[Service]
-Type=simple
-ExecStart=bash %h/.config/systemd/user/yadm-updater.sh
