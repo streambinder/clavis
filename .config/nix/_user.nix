@@ -34,7 +34,6 @@
       brave
       ffmpeg
       gimp
-      gnome3.gnome-tweaks
       gnupg
       keepassxc
       imagemagick
@@ -45,6 +44,7 @@
       spotify
       tdesktop
       tilix
+      transmission-gtk
       unzip
       vscodium
       yadm
