@@ -25,7 +25,6 @@
     wget
     zsh
   ];
-  nixpkgs.config.allowUnfree = true;
   programs.seahorse.enable = false;
   services.gnome3.sushi.enable = false;
   services.gnome3.tracker.enable = false;
@@ -39,6 +38,8 @@
     gnome-weather
     simple-scan
   ];
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = [ (import ./_pkgs) ];
 
   # Mouse
   services.xserver.libinput = {

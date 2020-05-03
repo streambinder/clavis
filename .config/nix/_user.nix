@@ -40,6 +40,7 @@
       imagemagick
       megacmd
       nixfmt
+      paperboy
       pywal
       spotify
       tdesktop
@@ -162,13 +163,13 @@
           };
           Install = { WantedBy = [ "default.target" ]; };
         };
-        # paperboy = {
-        #   Unit = { Description = "PaperBoy service"; };
-        #   Service = {
-        #     Type = "simple";
-        #     ExecStart = "paperboy -c %h/.config/paperboy";
-        #   };
-        # };
+        paperboy = {
+          Unit = { Description = "PaperBoy service"; };
+          Service = {
+            Type = "simple";
+            ExecStart = "${pkgs.paperboy}/bin/paperboy -c %h/.config/paperboy";
+          };
+        };
         yadm-updater = {
           Unit = { Description = "YADM config updater service"; };
           Service = {
@@ -187,14 +188,14 @@
         };
       };
       timers = {
-        # paperboy = {
-        #   Unit = { Description = "PaperBoy timer"; };
-        #   Timer = {
-        #     Unit = "paperboy.service";
-        #     OnCalendar = "*-*-* *:00/5";
-        #   };
-        #   Install = { WantedBy = [ "timers.target" ]; };
-        # };
+        paperboy = {
+          Unit = { Description = "PaperBoy timer"; };
+          Timer = {
+            Unit = "paperboy.service";
+            OnCalendar = "*-*-* *:00/5";
+          };
+          Install = { WantedBy = [ "timers.target" ]; };
+        };
         yadm-updater = {
           Unit = { Description = "YADM config updater timer"; };
           Timer = {
