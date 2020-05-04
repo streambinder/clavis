@@ -20,7 +20,7 @@
     createHome = true;
     uid = 1000;
     home = "/home/streambinder";
-    shell = "/run/current-system/sw/bin/zsh";
+    shell = "${pkgs.zsh}/bin/zsh";
   };
 
   # Home Manager

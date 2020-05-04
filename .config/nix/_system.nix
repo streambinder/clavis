@@ -25,8 +25,8 @@
     python39
     vim
     wget
-    zsh
   ];
+  programs.zsh.enable = true;
   programs.seahorse.enable = false;
   programs.geary.enable = false;
   services.gnome3.sushi.enable = false;
