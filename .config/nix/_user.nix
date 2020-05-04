@@ -83,6 +83,13 @@
       '';
     };
 
+    programs.vscode = {
+      enable = true;
+      package = pkgs.vscodium;
+      userSettings = { "editor.tabSize" = 4; };
+      extensions = [ ];
+    };
+
     programs.gnome-terminal = { enable = false; };
 
     services.gpg-agent = { enable = true; };
