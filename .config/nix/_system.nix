@@ -66,6 +66,12 @@
       switch-applications-backward=[]
       switch-windows=['<Alt>Tab', '<Super>Tab']
       switch-windows-backward=['<Alt><Shift>Tab', '<Super><Shift>Tab']
+      [org.gnome.settings-daemon.plugins.media-keys]
+      custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']
+      [org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/]
+      name='Shell'
+      command='tilix'
+      binding='<Super>t'
     '';
     layout = "us";
     xkbOptions = "alt-intl";
