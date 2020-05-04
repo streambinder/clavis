@@ -3,6 +3,7 @@
 {
   # Hardware: generated as hardware-configuration.nix
   imports = [
+    <nixos-hardware/lenovo/thinkpad/t440s>
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     # import common configuration
     ./_system.nix
