@@ -72,6 +72,23 @@
       name='Shell'
       command='tilix'
       binding='<Super>t'
+
+      [com.gexperts.Tilix.Settings]
+      app-title='$appName'
+      quake-specific-monitor=0
+      tab-position='top'
+      terminal-title-show-when-single=false
+      theme-variant='dark'
+      unsafe-paste-alert=false
+      warn-vte-config-issue=false
+      window-style='disable-csd-hide-toolbar'
+      [com.gexperts.Tilix.Profile:/com/gexperts/Tilx/Profiles:/:0/]
+      default-size-columns=170
+      default-size-rows=35
+      font='Monospace 12'
+      terminal-title='# $id'
+      use-system-font=false
+      visible-name='streambinder'
     '';
     layout = "us";
     xkbOptions = "alt-intl";
