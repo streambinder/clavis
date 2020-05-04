@@ -19,6 +19,7 @@
   environment.systemPackages = with pkgs; [
     binutils
     git
+    gnomeExtensions.night-theme-switcher
     go
     ntfs3g
     python39
@@ -53,10 +54,13 @@
   services.xserver = {
     enable = true;
     displayManager.gdm.enable = true;
+    displayManager.gdm.wayland = false;
     desktopManager.gnome3.enable = true;
     desktopManager.gnome3.extraGSettingsOverrides = ''
       [org.gnome.desktop.peripherals.touchpad]
       click-method='default'
+      [org.gnome.shell.app-switcher]
+      current-workspace-only=true
     '';
     layout = "us";
     xkbOptions = "alt-intl";
