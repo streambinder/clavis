@@ -61,6 +61,11 @@
       click-method='default'
       [org.gnome.shell.app-switcher]
       current-workspace-only=true
+      [org.gnome.desktop.wm.keybindings]
+      switch-applications=[]
+      switch-applications-backward=[]
+      switch-windows=['<Alt>Tab', '<Super>Tab']
+      switch-windows-backward=['<Alt><Shift>Tab', '<Super><Shift>Tab']
     '';
     layout = "us";
     xkbOptions = "alt-intl";
