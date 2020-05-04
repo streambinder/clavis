@@ -115,6 +115,7 @@
       alias egrep="egrep --color=auto"
       alias fgrep="fgrep --color=auto"
       # customizations
+      alias nix-update="sudo nixos-rebuild -I nixos-config=$HOME/.nix/crow.nix switch"
       alias npm="npm -g"
       alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
       alias vi="vim"
