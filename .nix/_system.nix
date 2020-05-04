@@ -18,6 +18,7 @@
   # System packages
   environment.systemPackages = with pkgs; [
     binutils
+    clang-tools
     git
     gnomeExtensions.night-theme-switcher
     go
