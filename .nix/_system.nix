@@ -21,6 +21,7 @@
     clang-tools
     git
     gnomeExtensions.night-theme-switcher
+    gnome3.gnome-tweaks
     go
     ntfs3g
     python39
