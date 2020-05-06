@@ -23,6 +23,7 @@
     gnomeExtensions.night-theme-switcher
     gnome3.gnome-tweaks
     go
+    nmap
     ntfs3g
     python39
     vim
