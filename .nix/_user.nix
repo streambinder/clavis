@@ -31,7 +31,7 @@
     home.stateVersion = "20.03";
 
     home.packages = with pkgs; [
-      brave
+      chromium
       ffmpeg
       gimp
       gnupg
