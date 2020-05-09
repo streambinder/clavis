@@ -86,13 +86,21 @@
     programs.vscode = {
       enable = true;
       package = pkgs.vscodium;
-      userSettings = { "editor.tabSize" = 4; };
+      userSettings = {
+        "workbench.startupEditor" = "newUntitledFile";
+        "editor.tabSize" = 4;
+        "go.gopath" = "/home/streambinder/go";
+      };
       extensions = [ ];
     };
 
     programs.gnome-terminal = { enable = false; };
 
     services.gpg-agent = { enable = true; };
+
+    home.file.".hidden".text = ''
+      go
+    '';
 
     home.file.".shrc".text = ''
       # external imports
@@ -104,7 +112,7 @@
       export EDITOR="vi"
       # customizations
       export SVN_EDITOR="$EDITOR"
-      export GOPATH="$HOME/.go"
+      export GOPATH="$HOME/go"
       # path
       export PATH=$HOME/.local/bin:$GOPATH/bin:$HOME/.npm/bin:/usr/local/sbin:/usr/local/bin:$PATH
 
