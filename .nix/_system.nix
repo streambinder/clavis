@@ -25,7 +25,9 @@
     go
     nmap
     ntfs3g
-    python39
+    python3
+    python3Packages.autopep8
+    python3Packages.numpy
     vim
     wget
   ];

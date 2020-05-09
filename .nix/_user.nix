@@ -89,6 +89,8 @@
       userSettings = {
         "workbench.startupEditor" = "newUntitledFile";
         "editor.tabSize" = 4;
+        "python.formatting.autopep8Path" =
+          "/run/current-system/sw/bin/autopep8";
         "go.gopath" = "/home/streambinder/go";
       };
       extensions = [ ];
