@@ -1,10 +1,10 @@
 [Unit]
 Description=PaperBoy service
+ConditionPathExists=%h/.config/paperboy
 
 [Service]
 Type=simple
 ExecStart=paperboy -c %h/.config/paperboy
-ConditionPathExists=%h/.config/paperboy
 Restart=always
 RestartSec=10
 
