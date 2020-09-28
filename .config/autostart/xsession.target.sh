@@ -1,0 +1,4 @@
+#!/bin/bash
+
+systemctl --user import-environment PATH DBUS_SESSION_BUS_ADDRESS
+systemctl --no-block --user start xsession.target

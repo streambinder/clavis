@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Xsession target
+GenericName=Xsession target
+Comment=Xsession up
+Exec=/home/streambinder/.config/autostart/xsession.target.sh
+Terminal=false
+Type=Application
+X-GNOME-Autostart-enabled=true
