@@ -4,6 +4,7 @@
 [ -f /usr/share/defaults/etc/profile.d/vte.sh ] && source /usr/share/defaults/etc/profile.d/vte.sh
 [ -f ${HOME}/.shrc_secure ] && source "${HOME}/.shrc_secure"
 [ -f ${HOME}/.shrc_sudo ] && source "${HOME}/.shrc_sudo"
+[ -f ${HOME}/.shrc_os ] && source "${HOME}/.shrc_os"
 [ -f ${HOME}/.shrc_local ] && source "${HOME}/.shrc_local"
 [ -d ${HOME}/.cache/wal ] && (cat ~/.cache/wal/sequences &)
 
@@ -19,12 +20,6 @@ export GOPATH="$HOME/.go"
 export PATH=$HOME/.local/bin:$GOPATH/bin:$HOME/.npm/bin:/usr/local/sbin:/usr/local/bin:$PATH
 
 ## aliases
-# system
-alias ls="ls --color=auto"
-alias grep="grep --color=auto"
-alias egrep="egrep --color=auto"
-alias fgrep="fgrep --color=auto"
-# customizations
 alias npm="npm -g"
 alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias vi="vim"
