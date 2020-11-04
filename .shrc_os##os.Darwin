@@ -1,0 +1,4 @@
+#!/bin/sh
+
+## exports
+export GPG_TTY="$(tty)"
