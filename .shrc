@@ -17,7 +17,7 @@ export SVN_EDITOR="$EDITOR"
 export ZSH_THEME="sorin"
 export GOPATH="$HOME/.go"
 # path
-export PATH=$HOME/.local/bin:$GOPATH/bin:$HOME/.npm/bin:/usr/local/sbin:/usr/local/bin:$PATH
+export PATH=$HOME/.local/bin:$GOPATH/bin:$HOME/.rvm/bin:$HOME/.npm/bin:/usr/local/sbin:/usr/local/bin:$PATH
 
 ## aliases
 alias npm="npm -g"
