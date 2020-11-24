@@ -1,4 +1,5 @@
 .config/spotitube
 .config/traho
+.gnupg/*.pgp
 .ssh/id_rsa*
 .shrc_secure
