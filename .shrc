@@ -19,7 +19,7 @@ export GOPATH="$HOME/.go"
 export PATH=$HOME/.local/bin:$GOPATH/bin:$HOME/.rvm/bin:$HOME/.npm/bin:/usr/local/sbin:/usr/local/bin:$PATH
 # auxiliary
 export _SUDO_CMDS="eopkg updatedb openvpn solbuild fdisk fastboot eject"
-export _INST_CMDS="solbuild vscodium yadm tilix golang keepassx syncthing zsh pywal traho spotitube"
+export _INST_CMDS="solbuild vscodium yadm tilix golang keepassx syncthing zsh pywal traho spotitube nuntius"
 
 ## aliases
 alias npm="npm -g"
