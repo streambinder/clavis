@@ -3,4 +3,4 @@
 cd "$HOME"
 
 source .shrc
-eopkg it -y ${_INST_CMDS}
+sudo eopkg it -y ${_INST_CMDS}
