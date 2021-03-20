@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# path is likely needed in other shrcs as well
+export PATH=$HOME/.local/bin:$GOPATH/bin:$HOME/.rvm/bin:$HOME/.npm/bin:/usr/local/sbin:/usr/local/bin:$PATH
+
 # external imports
 [ -e /usr/share/defaults/etc/profile.d/vte.sh ] && source /usr/share/defaults/etc/profile.d/vte.sh
 [ -e ${HOME}/.shrc_secure ] && source "${HOME}/.shrc_secure"
@@ -15,8 +18,6 @@ export EDITOR="vi"
 export SVN_EDITOR="$EDITOR"
 export ZSH_THEME="cypher"
 export GOPATH="$HOME/.go"
-# path
-export PATH=$HOME/.local/bin:$GOPATH/bin:$HOME/.rvm/bin:$HOME/.npm/bin:/usr/local/sbin:/usr/local/bin:$PATH
 # auxiliary
 export _SUDO_CMDS="apt eopkg updatedb openvpn solbuild fdisk fastboot eject"
 export _INST_CMDS="solbuild vscodium yadm tilix golang keepassx syncthing zsh pywal traho spotitube nuntius"
