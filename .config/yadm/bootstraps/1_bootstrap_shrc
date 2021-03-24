@@ -2,12 +2,12 @@
 
 cd "$HOME"
 
-for sh_variant in zsh; do
+sh_line='[ -e "${HOME}/.shrc" ] && . "${HOME}/.shrc"'
+
+for sh_variant in bash zsh; do
 	sh_fname=".${sh_variant}rc"
-	if [ -e "${sh_fname}" ] && [[ $(egrep -ce '^.*source.*/.shrc' "${sh_fname}") -eq 0 ]]; then
+	if [ -e "${sh_fname}" ] && [[ $(grep -c "${sh_line}" "${sh_fname}") -eq 0 ]]; then
 		echo "${sh_fname} is missing .shrc import: fixing it"
-		sh_fname_insln="$(grep -n -m 1 ^source\  "${sh_fname}" | awk -F':' '{print $1}')"
-		sh_fname_new="$(head -n +"$((sh_fname_insln - 1))" "${sh_fname}"; echo -e 'if [ -e "$HOME/.shrc" ]; then\n\tsource "$HOME/.shrc"\nfi'; tail -n +"${sh_fname_insln}" "${sh_fname}")"
-		echo "${sh_fname_new}" > "${sh_fname}"
+		echo "${sh_line}" >> "${sh_fname}"
 	fi
-done
+ done
