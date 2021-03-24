@@ -1,6 +1,0 @@
-[Unit]
-Description=Wal configuration files flusher service
-
-[Service]
-Type=simple
-ExecStart=bash %h/.config/systemd/user/wal-flusher.sh
