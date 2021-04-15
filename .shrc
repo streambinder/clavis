@@ -14,6 +14,7 @@ export _INST_CMDS="solbuild vscodium yadm tilix golang keepassx syncthing zsh py
 export PATH=$HOME/.local/bin:$GOPATH/bin:$HOME/.rvm/bin:$HOME/.npm/bin:/usr/local/sbin:/usr/local/bin:$PATH
 
 ## aliases
+alias docker="podman"
 alias npm="npm -g"
 alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias vi="vim"
