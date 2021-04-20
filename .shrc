@@ -23,7 +23,8 @@ alias vi="vim"
 # system
 [ -e /usr/share/defaults/etc/profile.d/vte.sh ] && source /usr/share/defaults/etc/profile.d/vte.sh
 # user
-[ -e ${HOME}/.shrc_secure ] && source "${HOME}/.shrc_secure"
-[ -e ${HOME}/.shrc_sudo ] && source "${HOME}/.shrc_sudo"
-[ -e ${HOME}/.shrc_os ] && source "${HOME}/.shrc_os"
-[ -e ${HOME}/.shrc_local ] && source "${HOME}/.shrc_local"
+for shrc in {secure,sudo,os,local}; do
+	if [ -e "${HOME}/.shrc_${shrc}" ]; then
+	       source "${HOME}/.shrc_${shrc}"
+	fi
+done
