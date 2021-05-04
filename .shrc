@@ -1,8 +1,6 @@
 #!/bin/sh
 
 ## exports
-# system
-export EDITOR="vi"
 # customizations
 export SVN_EDITOR="$EDITOR"
 export ZSH_THEME="cypher"
@@ -17,7 +15,6 @@ export PATH=$HOME/.local/bin:$GOPATH/bin:$HOME/.rvm/bin:$HOME/.npm/bin:/usr/loca
 alias docker="podman"
 alias npm="npm -g"
 alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias vi="vim"
 
 ## imports
 # system
