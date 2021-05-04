@@ -12,7 +12,6 @@ window-style='disable-csd-hide-toolbar'
 [profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d]
 default-size-columns=170
 default-size-rows=35
-font='Monospace 12'
 terminal-title='# ${id}'
-use-system-font=false
+use-system-font=true
 visible-name='streambinder'
