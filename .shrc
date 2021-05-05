@@ -2,7 +2,7 @@
 
 ## exports
 # customizations
-export SVN_EDITOR="$EDITOR"
+export EDITOR="vim"
 export ZSH_THEME="cypher"
 export GOPATH="$HOME/.go"
 # auxiliary
