@@ -1,6 +1,0 @@
-#!/bin/sh
-
-## exports
-export GPG_TTY="$(tty)"
-export LANG="en_US.utf-8"
-export LC_ALL="en_US.utf-8"

@@ -12,6 +12,10 @@ export PATH=$HOME/.local/bin:$GOPATH/bin:$HOME/.rvm/bin:$HOME/.npm/bin:/usr/loca
 
 ## aliases
 alias docker="podman"
+alias ls="ls --color=auto"
+alias grep="grep --color=auto"
+alias egrep="egrep --color=auto"
+alias fgrep="fgrep --color=auto"
 
 ## imports
 # system
