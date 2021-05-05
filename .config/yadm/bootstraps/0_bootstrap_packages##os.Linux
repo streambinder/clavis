@@ -1,6 +1,0 @@
-#!/bin/bash
-
-cd "$HOME"
-
-source .shrc
-sudo eopkg it -y ${_INST_CMDS}

@@ -7,14 +7,11 @@ export ZSH_THEME="cypher"
 export GOPATH="$HOME/.go"
 # auxiliary
 export _SUDO_CMDS="apt eopkg updatedb openvpn solbuild fdisk fastboot eject"
-export _INST_CMDS="solbuild vscodium yadm tilix golang keepassx syncthing zsh pywal traho spotitube nuntius"
 # path
 export PATH=$HOME/.local/bin:$GOPATH/bin:$HOME/.rvm/bin:$HOME/.npm/bin:/usr/local/sbin:/usr/local/bin:$PATH
 
 ## aliases
 alias docker="podman"
-alias npm="npm -g"
-alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
 
 ## imports
 # system
