@@ -1,3 +1,0 @@
-[submodule ".local/share/unciae"]
-	path = .local/share/unciae
-	url = https://github.com/streambinder/unciae.git
