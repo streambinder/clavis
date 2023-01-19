@@ -1,9 +1,10 @@
 #!/bin/bash
 
-cd "$HOME/.config/yadm"
+cd "${HOME}/.config/yadm"
 
+echo "Bootstrapping.."
 for bootstrap_fname in bootstraps/[0-9]_bootstrap_*; do
 	[[ "${bootstrap_fname}" =~ "##" ]] && continue
-	echo "Trigger sub bootstrap script ${bootstrap_fname}"
+	echo "[${bootstrap_fname}]"
 	bash "${bootstrap_fname}"
 done

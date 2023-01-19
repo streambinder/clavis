@@ -1,0 +1,39 @@
+#!/bin/bash
+
+set -euo pipefail
+
+cd "$HOME"
+
+find .local/share/unciae -type f -name "runner.*" | while read -r fname; do
+	fname_bin="$(awk -F/ '{print $(NF-1)}' <<< "${fname}")"
+	fname_bin_rel="$(sed 's|^.local|..|' <<< "${fname}")"
+	fname_bin_path=".local/bin/${fname_bin}"
+	fname_bin_parent="$(dirname "${fname}")"
+	fname_abs="$(realpath "${fname}")"
+	case "${fname##*.}" in
+	sh)
+		echo "Linking shell script ${fname_bin} at ${fname_bin_path}"
+		ln -sf "${fname_bin_rel}" "${fname_bin_path}"
+		;;
+	py)
+		fname_req="${fname_bin_parent}/requirements.txt"
+		fname_venv="${fname_bin_parent}/venv"
+		if [ -f "${fname_req}" ]; then
+			echo "Wrapping Python script ${fname_bin} in a virtual environment at ${fname_bin_path}"
+			python3 -m venv "${fname_bin_parent}/venv"
+			source "${fname_bin_parent}/venv/bin/activate"
+			pip install -r "${fname_req}"
+			echo -e "#!/bin/bash\n$(which python) \"${fname_abs}\" \$*" > "${fname_bin_path}"
+			deactivate
+		else
+			echo "Linking Python script ${fname_bin} at ${fname_bin_path}"
+			ln -sf "${fname_bin_rel}" "${fname_bin_path}"
+		fi
+		;;
+	go)
+		echo "Wrapping Go script ${fname_bin} at ${fname_bin_path}"
+		echo -e "#!/bin/bash\ngo run \"${fname_abs}\" \$*" > "${fname_bin_path}"
+		;;
+	esac
+	[ -e "${fname_bin_path}" ] && chmod a+x "${fname_bin_path}"
+done
