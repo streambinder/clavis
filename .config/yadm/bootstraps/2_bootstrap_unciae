@@ -5,11 +5,13 @@ set -euo pipefail
 cd "$HOME"
 
 find .local/share/unciae -type f -name "runner.*" | while read -r fname; do
-	fname_bin="$(awk -F/ '{print $(NF-1)}' <<< "${fname}")"
-	fname_bin_rel="$(sed 's|^.local|..|' <<< "${fname}")"
-	fname_bin_path=".local/bin/${fname_bin}"
-	fname_bin_parent="$(dirname "${fname}")"
-	fname_abs="$(realpath "${fname}")"
+	# file name: .local/share/unciae/category/uncia/runner.sh
+	fname_bin="$(awk -F/ '{print $(NF-1)}' <<< "${fname}")" # script name: uncia
+	fname_bin_rel="$(sed 's|^.local|..|' <<< "${fname}")" # path relative to .local/bin: ../share/unciae/category/uncia/runner.sh
+	fname_bin_path=".local/bin/${fname_bin}" # script target path: .local/bin/uncia
+	fname_bin_parent="$(dirname "${fname}")" # script directory: .local/share/unciae/category/uncia
+	fname_abs="$(realpath "${fname}")" # absolute path to the script: /home/$USER/.local/share/unciae/category/uncia/runner.sh
+	fname_base="$(basename "${fname}")" # script base name: runner.sh
 	case "${fname##*.}" in
 	sh)
 		echo "Linking shell script ${fname_bin} at ${fname_bin_path}"
@@ -31,8 +33,11 @@ find .local/share/unciae -type f -name "runner.*" | while read -r fname; do
 		fi
 		;;
 	go)
-		echo "Wrapping Go script ${fname_bin} at ${fname_bin_path}"
-		echo -e "#!/bin/bash\ngo run \"${fname_abs}\" \$*" > "${fname_bin_path}"
+		echo "Building Go script ${fname_bin} at ${fname_bin_path}"
+		cd "${fname_bin_parent}"
+		go build
+		cd - >/dev/null
+		cp "${fname_bin_parent}/${fname_bin}" "${fname_bin_path}"
 		;;
 	esac
 	[ -e "${fname_bin_path}" ] && chmod a+x "${fname_bin_path}"
