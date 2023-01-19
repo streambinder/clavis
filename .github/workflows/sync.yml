@@ -1,0 +1,40 @@
+name: sync
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
+env:
+  commit_msg: "chore(unciae): flush"
+  submodule_path: ".local/share/unciae"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_ACTIONS_CLAVIS }}
+      - name: Setup repository
+        run: |
+          git config user.email "automata@davidepucci.it" 
+          git config user.name "Automata"
+      - name: Run packages update check
+        run: |
+          git submodule update --init --remote "${submodule_path}"
+          if ! git diff-index --quiet HEAD -- "${submodule_path}"; then
+            git commit -m "${commit_msg}" "${submodule_path}"
+          fi
+      - name: Strip sync commits
+        run: |
+          git fetch --unshallow
+          while [ $(git log --oneline -2 | grep -c "${commit_msg}") -eq 2 ]; do
+            git log --oneline -1 | awk '{print $1}' | xargs -r git commit --amend --fixup
+            git rebase -i --autostash --autosquash HEAD~2
+          done
+        env:
+          GIT_SEQUENCE_EDITOR: ":"
+      - name: Push repository
+        run: |
+          git push -f origin master
