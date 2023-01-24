@@ -1,15 +1,14 @@
-name: sync
+name: unciae-sync
 
 on:
   repository_dispatch:
     types: [unciae-sync]
 
 env:
-  commit_msg: "chore(unciae): sync"
   submodule_path: ".local/share/unciae"
 
 jobs:
-  unciae-update:
+  unciae-sync:
     if: ${{ github.event.client_payload.ref == 'refs/heads/master' }}
     runs-on: ubuntu-latest
     steps:
@@ -25,7 +24,7 @@ jobs:
         run: |
           git submodule update --init "${submodule_path}"
           git --git-dir="${submodule_path}/.git" checkout "${{ github.event.client_payload.sha }}"
-          git commit -m "${commit_msg} ($(cut -c-7 <<< "${{ github.event.client_payload.sha }}"))" "${submodule_path}"
+          git commit -m "chore(unciae): sync (streambinder/unciae@$(cut -c-7 <<< "${{ github.event.client_payload.sha }}"))" "${submodule_path}"
       - name: Push repository
         run: |
           git push
