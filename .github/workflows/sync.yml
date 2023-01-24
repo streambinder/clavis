@@ -1,15 +1,16 @@
 name: sync
 
 on:
-  schedule:
-    - cron: '0 0 * * *'
+  repository_dispatch:
+    types: [unciae-sync]
 
 env:
-  commit_msg: "chore(unciae): flush"
+  commit_msg: "chore(unciae): sync"
   submodule_path: ".local/share/unciae"
 
 jobs:
-  sync:
+  unciae-update:
+    if: ${{ github.event.client_payload.ref == 'refs/heads/master' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -20,21 +21,11 @@ jobs:
         run: |
           git config user.email "automata@davidepucci.it" 
           git config user.name "Automata"
-      - name: Run packages update check
+      - name: Sync unciae to dispatched sha
         run: |
-          git submodule update --init --remote "${submodule_path}"
-          if ! git diff-index --quiet HEAD -- "${submodule_path}"; then
-            git commit -m "${commit_msg}" "${submodule_path}"
-          fi
-      - name: Strip sync commits
-        run: |
-          git fetch --unshallow
-          while [ $(git log --oneline -2 | grep -c "${commit_msg}") -eq 2 ]; do
-            git log --oneline -1 | awk '{print $1}' | xargs -r git commit --amend --fixup
-            git rebase -i --autostash --autosquash HEAD~2
-          done
-        env:
-          GIT_SEQUENCE_EDITOR: ":"
+          git submodule update --init "${submodule_path}"
+          git --git-dir "${submodule_path}" checkout "${{ github.event.client_payload.sha }}"
+          git commit -m "${commit_msg} (${{ github.event.client_payload.sha[:7] }})" "${submodule_path}"
       - name: Push repository
         run: |
-          git push -f origin master
+          git push
