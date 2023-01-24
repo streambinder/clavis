@@ -24,7 +24,7 @@ jobs:
       - name: Sync unciae to dispatched sha
         run: |
           git submodule update --init "${submodule_path}"
-          git --git-dir "${submodule_path}" checkout "${{ github.event.client_payload.sha }}"
+          git --git-dir="${submodule_path}/.git" checkout "${{ github.event.client_payload.sha }}"
           git commit -m "${commit_msg} ($(cut -c-7 <<< "${{ github.event.client_payload.sha }}"))" "${submodule_path}"
       - name: Push repository
         run: |
