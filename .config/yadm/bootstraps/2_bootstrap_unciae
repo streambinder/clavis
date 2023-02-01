@@ -24,6 +24,7 @@ find .local/share/unciae -type f -name "runner.*" | while read -r fname; do
 			echo "Wrapping Python script ${fname_bin} in a virtual environment at ${fname_bin_path}"
 			python3 -m venv "${fname_bin_parent}/venv"
 			source "${fname_bin_parent}/venv/bin/activate"
+			pip install --upgrade pip
 			pip install -r "${fname_req}"
 			echo -e "#!/bin/bash\n$(which python) \"${fname_abs}\" \$*" > "${fname_bin_path}"
 			deactivate
