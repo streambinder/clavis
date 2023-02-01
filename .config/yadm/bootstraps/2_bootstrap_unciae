@@ -37,7 +37,7 @@ find .local/share/unciae -type f -name "runner.*" | while read -r fname; do
 		cd "${fname_bin_parent}"
 		go build
 		cd - >/dev/null
-		cp "${fname_bin_parent}/${fname_bin}" "${fname_bin_path}"
+		mv "${fname_bin_parent}/${fname_bin}" "${fname_bin_path}"
 		;;
 	esac
 	[ -e "${fname_bin_path}" ] && chmod a+x "${fname_bin_path}"
