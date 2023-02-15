@@ -5,7 +5,7 @@ set -euo pipefail
 cd "$HOME"
 
 echo "Deleting broken symlinks..."
-find -L .local/bin -maxdepth 1 -type l -exec rm -v {} \;
+find -L .local/bin -maxdepth 1 -type l -print -delete
 
 echo "Linking existing tools..."
 find .local/share/unciae -type f -name "runner.*" | while read -r fname; do
