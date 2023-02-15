@@ -4,6 +4,10 @@ set -euo pipefail
 
 cd "$HOME"
 
+echo "Deleting broken symlinks..."
+find -L .local/bin -maxdepth 1 -type l -exec rm -v {} \;
+
+echo "Linking existing tools..."
 find .local/share/unciae -type f -name "runner.*" | while read -r fname; do
 	# file name: .local/share/unciae/category/uncia/runner.sh
 	fname_bin="$(awk -F/ '{print $(NF-1)}' <<< "${fname}")" # script name: uncia
@@ -12,6 +16,7 @@ find .local/share/unciae -type f -name "runner.*" | while read -r fname; do
 	fname_bin_parent="$(dirname "${fname}")" # script directory: .local/share/unciae/category/uncia
 	fname_abs="$(realpath "${fname}")" # absolute path to the script: /home/$USER/.local/share/unciae/category/uncia/runner.sh
 	fname_base="$(basename "${fname}")" # script base name: runner.sh
+	rm -f "${fname_bin_path}"
 	case "${fname##*.}" in
 	sh)
 		echo "Linking shell script ${fname_bin} at ${fname_bin_path}"
