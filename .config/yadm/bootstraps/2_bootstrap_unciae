@@ -14,6 +14,7 @@ find .local/share/unciae -type f -name "runner.*" | while read -r fname; do
 	fname_bin_rel="$(sed 's|^.local|..|' <<< "${fname}")" # path relative to .local/bin: ../share/unciae/category/uncia/runner.sh
 	fname_bin_path=".local/bin/${fname_bin}" # script target path: .local/bin/uncia
 	fname_bin_parent="$(dirname "${fname}")" # script directory: .local/share/unciae/category/uncia
+        fname_bin_venv="${fname_bin_parent}/venv"
 	fname_abs="$(realpath "${fname}")" # absolute path to the script: /home/$USER/.local/share/unciae/category/uncia/runner.sh
 	fname_base="$(basename "${fname}")" # script base name: runner.sh
 	rm -f "${fname_bin_path}"
@@ -27,9 +28,10 @@ find .local/share/unciae -type f -name "runner.*" | while read -r fname; do
 		fname_venv="${fname_bin_parent}/venv"
 		if [ -f "${fname_req}" ]; then
 			echo "Wrapping Python script ${fname_bin} in a virtual environment at ${fname_bin_path}"
-			python3 -m venv "${fname_bin_parent}/venv"
-			source "${fname_bin_parent}/venv/bin/activate"
-			pip install -Uqr "${fname_req}" pip
+			test -d "${fname_bin_venv}" || python3 -m venv "${fname_bin_venv}"
+			source "${fname_bin_venv}/bin/activate"
+			pip install -Uq pip
+			pip install -Uqr "${fname_req}"
 			echo -e "#!/bin/bash\n$(which python) \"${fname_abs}\" \$*" > "${fname_bin_path}"
 			deactivate
 		else
