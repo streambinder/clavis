@@ -1,6 +1,0 @@
-#!/bin/bash
-
-set -euo pipefail
-
-[ -f "$HOME/.tmux/plugins/tpm/bin/install_plugins" ] && \
-	exec "$HOME/.tmux/plugins/tpm/bin/install_plugins"

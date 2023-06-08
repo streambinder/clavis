@@ -28,12 +28,3 @@ for shrc in {secure,sudo,os,local}; do
 	       source "${HOME}/.shrc_${shrc}"
 	fi
 done
-
-## start tmux
-if command -v tmux &> /dev/null \
-		&& [ -n "$PS1" ] \
-		&& [[ ! "$TERM" =~ screen ]] \
-		&& [[ ! "$TERM" =~ tmux ]] \
-		&& [ -z "$TMUX" ]; then
-	exec tmux new-session -A -s shell
-fi
