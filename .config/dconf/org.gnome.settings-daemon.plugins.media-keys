@@ -3,6 +3,6 @@ custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybin
 terminal=@as []
 
 [custom-keybindings/custom0]
-binding='<Primary><Alt>t'
+binding='<Super>t'
 command='tilix'
 name='Shell'
