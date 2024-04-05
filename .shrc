@@ -8,7 +8,7 @@ export GOPATH="$HOME/.go"
 # auxiliary
 export _SUDO_CMDS="apt eopkg updatedb openvpn solbuild fdisk fastboot eject"
 # path
-export PATH=$HOME/.local/bin:$GOPATH/bin:$HOME/.rvm/bin:$HOME/.npm/bin:/usr/local/sbin:/usr/local/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/.nix-profile/bin:$GOPATH/bin:$HOME/.rvm/bin:$HOME/.npm/bin:/usr/local/sbin:/usr/local/bin:$PATH
 
 ## aliases
 alias vi="vim"
