@@ -1,3 +1,4 @@
 .config/spotitube
 .gitconfig.user
 .shrc_secure
+.ssh/config.d/home
