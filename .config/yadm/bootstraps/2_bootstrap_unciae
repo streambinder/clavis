@@ -30,7 +30,7 @@ find .local/share/unciae -type f -name "runner.*" | while read -r fname; do
 			echo "Wrapping Python script ${fname_bin} in a virtual environment at ${fname_bin_path}"
 			uv venv "${fname_bin_venv}"
 			source "${fname_bin_venv}/bin/activate"
-			uv pip sync "${fname_req}"
+			uv pip install -r "${fname_req}"
 			echo -e "#!/bin/bash\n$(which python) \"${fname_abs}\" \$*" > "${fname_bin_path}"
 			deactivate
 		else
