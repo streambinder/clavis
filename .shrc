@@ -8,7 +8,7 @@ export GOPATH="$HOME/.go"
 # auxiliary
 export _SUDO_CMDS="apt eopkg updatedb openvpn solbuild fdisk fastboot eject"
 # path
-export PATH=$HOME/.local/bin:/opt/homebrew/bin:$GOPATH/bin:$HOME/.rvm/bin:$HOME/.npm/bin:/usr/local/sbin:/usr/local/bin:$PATH
+export PATH="$HOME/.local/bin:/opt/homebrew/bin:$GOPATH/bin:$HOME/.rvm/bin:$HOME/.npm/bin:/usr/local/sbin:/usr/local/bin:$PATH"
 
 ## aliases
 alias vi="vim"
@@ -20,10 +20,12 @@ alias fgrep="fgrep --color=auto"
 
 ## imports
 # system
-[ -e /usr/share/defaults/etc/profile.d/vte.sh ] && source /usr/share/defaults/etc/profile.d/vte.sh
+# shellcheck source=/dev/null
+[ -e /usr/share/defaults/etc/profile.d/vte.sh ] && . /usr/share/defaults/etc/profile.d/vte.sh
 # user
-for shrc in {secure,sudo,os,local}; do
+for shrc in secure sudo os local; do
 	if [ -e "${HOME}/.shrc_${shrc}" ]; then
-	       source "${HOME}/.shrc_${shrc}"
+		# shellcheck source=/dev/null
+		. "${HOME}/.shrc_${shrc}"
 	fi
 done

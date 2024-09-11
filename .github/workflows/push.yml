@@ -1,0 +1,36 @@
+---
+name: push
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+permissions: read-all
+
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: wagoid/commitlint-github-action@v5
+  codespell:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: codespell-project/actions-codespell@v2
+        with:
+          check_filenames: true
+  super-linter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: super-linter/super-linter@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_CLAVIS }}
+          VALIDATE_ALL_CODEBASE: false

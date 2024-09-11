@@ -1,14 +1,16 @@
 #!/bin/bash
 
-cd "$HOME"
+set -euo pipefail
 
-source .shrc
-cat <<EOF > ".shrc_sudo"
+cd "${HOME}"
+
+. .shrc
+cat <<EOF >".shrc_sudo"
 #!/bin/sh
 
 EOF
 
-tr " " "\n" <<< "${_SUDO_CMDS}" | while read cmd; do
+tr " " "\n" <<<"${_SUDO_CMDS}" | while read -r cmd; do
 	echo "Aliasing with sudo ${cmd} command"
-	echo "alias ${cmd}=\"sudo \$(which ${cmd})\"" >> ".shrc_sudo"
+	echo "alias ${cmd}=\"sudo \$(which ${cmd})\"" >>".shrc_sudo"
 done

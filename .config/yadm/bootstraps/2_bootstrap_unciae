@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-cd "$HOME"
+cd "${HOME}"
 
 echo "Deleting broken symlinks..."
 find -L .local/bin -maxdepth 1 -type l -print -exec rm -f {} +
@@ -10,13 +10,12 @@ find -L .local/bin -maxdepth 1 -type l -print -exec rm -f {} +
 echo "Linking existing tools..."
 find .local/share/unciae -type f -name "runner.*" | while read -r fname; do
 	# file name: .local/share/unciae/category/uncia/runner.sh
-	fname_bin="$(awk -F/ '{print $(NF-1)}' <<< "${fname}")" # script name: uncia
-	fname_bin_rel="$(sed 's|^.local|..|' <<< "${fname}")" # path relative to .local/bin: ../share/unciae/category/uncia/runner.sh
-	fname_bin_path=".local/bin/${fname_bin}" # script target path: .local/bin/uncia
-	fname_bin_parent="$(dirname "${fname}")" # script directory: .local/share/unciae/category/uncia
-	fname_bin_venv="${fname_bin_parent}/.venv" # venv directory: .local/share/unciae/category/uncia/.venv
-	fname_abs="$(realpath "${fname}")" # absolute path to the script: /home/$USER/.local/share/unciae/category/uncia/runner.sh
-	fname_base="$(basename "${fname}")" # script base name: runner.sh
+	fname_bin="$(awk -F/ '{print $(NF-1)}' <<<"${fname}")" # script name: uncia
+	fname_bin_rel="${fname/.local/..}"                     # path relative to .local/bin: ../share/unciae/category/uncia/runner.sh
+	fname_bin_path=".local/bin/${fname_bin}"               # script target path: .local/bin/uncia
+	fname_bin_parent="$(dirname "${fname}")"               # script directory: .local/share/unciae/category/uncia
+	fname_bin_venv="${fname_bin_parent}/.venv"             # venv directory: .local/share/unciae/category/uncia/.venv
+	fname_abs="$(realpath "${fname}")"                     # absolute path to the script: /home/$USER/.local/share/unciae/category/uncia/runner.sh
 	rm -f "${fname_bin_path}"
 	case "${fname##*.}" in
 	sh)
@@ -25,13 +24,13 @@ find .local/share/unciae -type f -name "runner.*" | while read -r fname; do
 		;;
 	py)
 		fname_req="${fname_bin_parent}/requirements.txt"
-		fname_venv="${fname_bin_parent}/venv"
 		if [ -f "${fname_req}" ]; then
 			echo "Wrapping Python script ${fname_bin} in a virtual environment at ${fname_bin_path}"
 			uv venv "${fname_bin_venv}"
-			source "${fname_bin_venv}/bin/activate"
+			# shellcheck source=/dev/null
+			. "${fname_bin_venv}/bin/activate"
 			uv pip install -r "${fname_req}"
-			echo -e "#!/bin/bash\n$(which python) \"${fname_abs}\" \$*" > "${fname_bin_path}"
+			echo -e "#!/bin/bash\n$(which python) \"${fname_abs}\" \$*" >"${fname_bin_path}"
 			deactivate
 		else
 			echo "Linking Python script ${fname_bin} at ${fname_bin_path}"

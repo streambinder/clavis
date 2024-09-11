@@ -1,12 +1,14 @@
 #!/bin/bash
 
-cd "$HOME/.config/systemd/user"
+set -euo pipefail
 
-find -maxdepth 1 -type f \( -name \*.timer -o -name \*.service \) -printf "%f\n" | while read systemd_entry; do
+cd "${HOME}/.config/systemd/user"
+
+find . -maxdepth 1 -type f \( -name \*.timer -o -name \*.service \) -printf "%f\n" | while read -r systemd_entry; do
 	if [ "$(grep -c "^\[Install\]" "${systemd_entry}")" -gt 0 ]; then
 		echo "Enabling ${systemd_entry}"
-		systemctl --user enable ${systemd_entry}
-		systemctl --user start ${systemd_entry}
+		systemctl --user enable "${systemd_entry}"
+		systemctl --user start "${systemd_entry}"
 	fi
 done
 

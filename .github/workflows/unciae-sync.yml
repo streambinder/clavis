@@ -4,6 +4,22 @@ on:
   repository_dispatch:
     types: [unciae-sync]
 
+permissions:
+  actions: read
+  attestations: none
+  checks: none
+  contents: write
+  deployments: none
+  id-token: none
+  issues: none
+  discussions: none
+  packages: none
+  pages: none
+  pull-requests: read
+  repository-projects: none
+  security-events: none
+  statuses: none
+
 env:
   submodule_path: ".local/share/unciae"
 
@@ -18,7 +34,7 @@ jobs:
           token: ${{ secrets.GH_ACTIONS_CLAVIS }}
       - name: Setup repository
         run: |
-          git config user.email "automata@davidepucci.it" 
+          git config user.email "automata@davidepucci.it"
           git config user.name "Automata"
       - name: Sync unciae to dispatched sha
         run: |
