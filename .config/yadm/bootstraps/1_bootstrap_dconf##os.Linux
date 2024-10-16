@@ -4,7 +4,7 @@ set -euo pipefail
 
 cd "${HOME}/.config/dconf"
 
-find . -name "com.*" -o -name "org.*" -o "net.*" | while read -r dconf_fname; do
+find . -name "com.*" -o -name "org.*" -o -name "net.*" | while read -r dconf_fname; do
 	dconf_entry="/$(basename "${dconf_fname}")/"
 	echo "Loading ${dconf_fname} into ${dconf_entry} entry"
 	dconf load "${dconf_entry}" <"${dconf_fname}"
