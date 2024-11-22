@@ -12,5 +12,5 @@ EOF
 
 tr " " "\n" <<<"${_SUDO_CMDS}" | while read -r cmd; do
 	echo "Aliasing with sudo ${cmd} command"
-	echo "alias ${cmd}=\"sudo \$(which ${cmd})\"" >>".shrc_sudo"
+	echo "alias ${cmd}=\"sudo \$(which ${cmd} 2>/dev/null || echo ${cmd})\"" >>".shrc_sudo"
 done
