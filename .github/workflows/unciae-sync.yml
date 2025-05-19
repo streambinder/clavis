@@ -13,12 +13,12 @@ permissions:
   id-token: none
   issues: none
   discussions: none
-  packages: none
+  packages: read
   pages: none
   pull-requests: read
   repository-projects: none
   security-events: none
-  statuses: none
+  statuses: write
 
 env:
   submodule_path: ".local/share/unciae"
@@ -28,10 +28,7 @@ jobs:
     if: ${{ github.event.client_payload.ref == 'refs/heads/master' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GH_ACTIONS_CLAVIS }}
+      - uses: actions/checkout@v4
       - name: Setup repository
         run: |
           git config user.email "automata@davidepucci.it"
@@ -42,5 +39,4 @@ jobs:
           git --git-dir="${submodule_path}/.git" checkout "${{ github.event.client_payload.sha }}"
           git commit -m "chore(unciae): sync (streambinder/unciae@$(cut -c-7 <<< "${{ github.event.client_payload.sha }}"))" "${submodule_path}"
       - name: Push repository
-        run: |
-          git push
+        run: git push
