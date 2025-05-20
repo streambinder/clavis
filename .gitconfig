@@ -4,3 +4,5 @@
 [include]
 	path = .gitconfig.user
 	path = .gitconfig.credential
+[init]
+	defaultBranch = master
