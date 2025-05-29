@@ -12,7 +12,6 @@ export PATH="$HOME/.local/bin:/opt/homebrew/bin:$GOPATH/bin:$HOME/.rvm/bin:$HOME
 
 ## aliases
 alias vi="vim"
-alias docker="podman"
 alias ls="ls --color=auto"
 alias grep="grep --color=auto"
 alias egrep="egrep --color=auto"
