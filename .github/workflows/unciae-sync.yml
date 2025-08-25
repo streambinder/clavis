@@ -38,7 +38,9 @@ jobs:
       - name: Sync unciae to dispatched sha
         run: |
           git submodule update --init "${submodule_path}"
-          git --git-dir="${submodule_path}/.git" checkout "${{ github.event.client_payload.sha }}"
-          git commit -m "chore(unciae): sync (streambinder/unciae@$(cut -c-7 <<< "${{ github.event.client_payload.sha }}"))" "${submodule_path}"
+          git --git-dir="${submodule_path}/.git" checkout "${GITHUB_EVENT_CLIENT_PAYLOAD_SHA}"
+          git commit -m "chore(unciae): sync (streambinder/unciae@$(cut -c-7 <<< "${GITHUB_EVENT_CLIENT_PAYLOAD_SHA}"))" "${submodule_path}"
+        env:
+          GITHUB_EVENT_CLIENT_PAYLOAD_SHA: ${{ github.event.client_payload.sha }}
       - name: Push repository
         run: git push
