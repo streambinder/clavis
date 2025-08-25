@@ -26,6 +26,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
       - uses: codespell-project/actions-codespell@v2
         with:
           check_filenames: true
@@ -35,6 +37,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
+          persist-credentials: false
       - run: ln -sv .github/linters/commitlint.config.js ./
       - uses: super-linter/super-linter/slim@v8.0.0
         env:
