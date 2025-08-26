@@ -1,6 +1,0 @@
----
-rules:
-  unpinned-uses:
-    ignore:
-      - push.yml
-      - unciae-sync.yml
