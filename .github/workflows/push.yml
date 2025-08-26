@@ -19,7 +19,7 @@ permissions:
   pull-requests: read
   repository-projects: none
   security-events: none
-  statuses: write
+  statuses: none
 
 jobs:
   codespell:
@@ -33,6 +33,8 @@ jobs:
           check_filenames: true
   super-linter:
     runs-on: ubuntu-latest
+    permissions:
+      statuses: write
     steps:
       - uses: actions/checkout@v5
         with:
