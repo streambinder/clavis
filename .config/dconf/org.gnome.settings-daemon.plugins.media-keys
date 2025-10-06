@@ -1,8 +1,0 @@
-[/]
-custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']
-terminal=@as []
-
-[custom-keybindings/custom0]
-binding='<Super>t'
-command='tilix'
-name='Shell'
