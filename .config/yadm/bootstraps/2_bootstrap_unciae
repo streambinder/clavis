@@ -26,7 +26,7 @@ find .local/share/unciae -type f -name "runner.*" | while read -r fname; do
 		fname_req="${fname_bin_parent}/requirements.txt"
 		if [ -f "${fname_req}" ]; then
 			echo "Wrapping Python script ${fname_bin} in a virtual environment at ${fname_bin_path}"
-			uv venv "${fname_bin_venv}"
+			uv venv --allow-existing "${fname_bin_venv}"
 			# shellcheck source=/dev/null
 			. "${fname_bin_venv}/bin/activate"
 			uv pip install -r "${fname_req}"
