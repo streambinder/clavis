@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -euo pipefail
+
+domain="gui/$(id -u)"
+
+echo "Loading launch agents..."
+for plist in "${HOME}"/Library/LaunchAgents/*.plist; do
+	[ -f "${plist}" ] || continue
+	label="$(/usr/libexec/PlistBuddy -c "Print :Label" "${plist}" 2>/dev/null)" || continue
+	if launchctl print "${domain}/${label}" &>/dev/null; then
+		echo "Already loaded: ${label}"
+		continue
+	fi
+	echo "Loading: ${label}"
+	launchctl bootstrap "${domain}" "${plist}"
+done
