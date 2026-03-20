@@ -1,0 +1,5 @@
+# disable vsync cap — renders as fast as the GPU allows, lower input latency
+window-vsync = false
+
+# let Metal handle blending natively, no extra passes
+alpha-blending = native
