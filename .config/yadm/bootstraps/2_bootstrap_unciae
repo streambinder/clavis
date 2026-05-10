@@ -4,6 +4,9 @@ set -euo pipefail
 
 cd "${HOME}"
 
+echo "Syncing unciae submodule..."
+yadm submodule update --init --recursive .local/share/unciae
+
 echo "Deleting broken symlinks..."
 find -L .local/bin -maxdepth 1 -type l -print -exec rm -f {} +
 
@@ -35,7 +38,6 @@ find .local/share/unciae -type f -name "runner.*" -not -path '*/.venv/*' | while
 			exec uv --project "${fname_parent_abs}" run --frozen python "${fname_abs}" "\$@"
 		EOF
 		chmod a+x "${fname_bin_path}"
-		"${fname_bin_path}" --help >/dev/null 2>&1 || echo "${fname_bin} warmup failed"
 		;;
 	go)
 		echo "Building Go script ${fname_bin} at ${fname_bin_path}"
