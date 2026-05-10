@@ -14,7 +14,6 @@ find .local/share/unciae -type f -name "runner.*" | while read -r fname; do
 	fname_bin_rel="${fname/.local/..}"                     # path relative to .local/bin: ../share/unciae/category/uncia/runner.sh
 	fname_bin_path=".local/bin/${fname_bin}"               # script target path: .local/bin/uncia
 	fname_bin_parent="$(dirname "${fname}")"               # script directory: .local/share/unciae/category/uncia
-	fname_bin_venv="${fname_bin_parent}/.venv"             # venv directory: .local/share/unciae/category/uncia/.venv
 	fname_abs="$(realpath "${fname}")"                     # absolute path to the script: /home/$USER/.local/share/unciae/category/uncia/runner.sh
 	rm -f "${fname_bin_path}"
 	case "${fname##*.}" in
@@ -23,21 +22,20 @@ find .local/share/unciae -type f -name "runner.*" | while read -r fname; do
 		ln -sf "${fname_bin_rel}" "${fname_bin_path}"
 		;;
 	py)
-		fname_req="${fname_bin_parent}/requirements.txt"
-		if [ -f "${fname_req}" ]; then
-			echo "Wrapping Python script ${fname_bin} in a virtual environment at ${fname_bin_path}"
-			uv venv --allow-existing "${fname_bin_venv}"
-			# shellcheck source=/dev/null
-			. "${fname_bin_venv}/bin/activate"
-			uv pip install -r "${fname_req}"
-			echo -e "#!/bin/bash\n$(which python) \"${fname_abs}\" \$*" >"${fname_bin_path}"
-			deactivate
-			chmod a+x "${fname_bin_path}"
-			"${fname_bin_path}" --help >/dev/null 2>&1 || echo "${fname_bin} warmup failed"
-		else
-			echo "Linking Python script ${fname_bin} at ${fname_bin_path}"
-			ln -sf "${fname_bin_rel}" "${fname_bin_path}"
+		fname_pyproject="${fname_bin_parent}/pyproject.toml"
+		if [ ! -f "${fname_pyproject}" ]; then
+			echo "ERROR: ${fname_bin} missing pyproject.toml at ${fname_bin_parent} (per unciae/ai/README.md §21.10)" >&2
+			exit 1
 		fi
+		fname_parent_abs="$(realpath "${fname_bin_parent}")"
+		echo "Provisioning Python script ${fname_bin} via uv at ${fname_bin_path}"
+		uv sync --frozen --project "${fname_parent_abs}"
+		cat >"${fname_bin_path}" <<-EOF
+			#!/bin/bash
+			exec uv --project "${fname_parent_abs}" run --frozen python "${fname_abs}" "\$@"
+		EOF
+		chmod a+x "${fname_bin_path}"
+		"${fname_bin_path}" --help >/dev/null 2>&1 || echo "${fname_bin} warmup failed"
 		;;
 	go)
 		echo "Building Go script ${fname_bin} at ${fname_bin_path}"
