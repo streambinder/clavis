@@ -38,6 +38,8 @@ find .local/share/unciae -type f -name "runner.*" -not -path '*/.venv/*' | while
 			exec uv --project "${fname_parent_abs}" run --frozen python "${fname_abs}" "\$@"
 		EOF
 		chmod a+x "${fname_bin_path}"
+		# pre-compile bytecode for faster cold-start
+		uv --project "${fname_parent_abs}" run --frozen python -m compileall -q "${fname_parent_abs}" >/dev/null 2>&1 || echo "${fname_bin} compileall failed"
 		;;
 	go)
 		echo "Building Go script ${fname_bin} at ${fname_bin_path}"
