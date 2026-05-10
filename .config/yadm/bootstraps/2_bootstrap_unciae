@@ -8,7 +8,7 @@ echo "Deleting broken symlinks..."
 find -L .local/bin -maxdepth 1 -type l -print -exec rm -f {} +
 
 echo "Linking existing tools..."
-find .local/share/unciae -type f -name "runner.*" | while read -r fname; do
+find .local/share/unciae -type f -name "runner.*" -not -path '*/.venv/*' | while read -r fname; do
 	# file name: .local/share/unciae/category/uncia/runner.sh
 	fname_bin="$(awk -F/ '{print $(NF-1)}' <<<"${fname}")" # script name: uncia
 	fname_bin_rel="${fname/.local/..}"                     # path relative to .local/bin: ../share/unciae/category/uncia/runner.sh
