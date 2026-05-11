@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# macOS Finder ignores .hidden; use chflags hidden flag instead.
+hide=(
+	"${HOME}/LICENSE"
+)
+
+for path in "${hide[@]}"; do
+	[ -e "${path}" ] || continue
+	chflags hidden "${path}"
+done
