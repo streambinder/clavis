@@ -9,5 +9,6 @@ hide=(
 
 for path in "${hide[@]}"; do
 	[ -e "${path}" ] || continue
+	echo "Hiding ${path}"
 	chflags hidden "${path}"
 done
