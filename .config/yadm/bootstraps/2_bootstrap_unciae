@@ -4,6 +4,9 @@ set -euo pipefail
 
 cd "${HOME}"
 
+# strip caller venv: loop spans many projects, each with own .venv
+unset VIRTUAL_ENV
+
 echo "Syncing unciae submodule..."
 yadm submodule update --init --recursive .local/share/unciae
 
@@ -35,7 +38,7 @@ find .local/share/unciae -type f -name "runner.*" -not -path '*/.venv/*' | while
 		uv sync --frozen --project "${fname_parent_abs}"
 		cat >"${fname_bin_path}" <<-EOF
 			#!/bin/bash
-			exec uv --project "${fname_parent_abs}" run --frozen python "${fname_abs}" "\$@"
+			exec env -u VIRTUAL_ENV uv --project "${fname_parent_abs}" run --frozen python "${fname_abs}" "\$@"
 		EOF
 		chmod a+x "${fname_bin_path}"
 		# pre-compile bytecode for faster cold-start
