@@ -8,7 +8,7 @@
 	<array>
 		<string>/bin/sh</string>
 		<string>-c</string>
-		<string>exec "$HOME/.local/bin/ianua" -port 8080 -claude-extra-args "--internet --dangerously-skip-permissions --allow-dangerously-skip-permissions --dangerously-enable-internet-mode --dangerously-disable-osx-sandbox"</string>
+		<string>exec "$HOME/.local/bin/ianua" -port 65535 -claude-extra-args "--internet --dangerously-skip-permissions --allow-dangerously-skip-permissions --dangerously-enable-internet-mode --dangerously-disable-osx-sandbox"</string>
 	</array>
 	<key>RunAtLoad</key>
 	<true/>
