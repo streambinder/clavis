@@ -5,6 +5,10 @@ on: # yamllint disable-line rule:truthy
   push: null
   pull_request: null
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   actions: read
   attestations: none
@@ -36,3 +40,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_ALL_CODEBASE: ${{ !contains(github.event_name, 'pull_request') }}
+          SAVE_SUPER_LINTER_OUTPUT: false
+          MULTI_STATUS: false
+          LOG_LEVEL: WARN
