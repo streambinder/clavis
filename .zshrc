@@ -119,12 +119,12 @@ if [[ ! " ${plugins[@]} " =~ " zsh-syntax-highlighting " ]]; then
 fi
 
 # Load forge shell plugin (commands, completions, keybindings) if not already loaded
-if [[ -z "$_FORGE_PLUGIN_LOADED" ]]; then
+if [[ -z "$_FORGE_PLUGIN_LOADED" ]] && command -v forge >/dev/null 2>&1; then
     eval "$(forge zsh plugin)"
 fi
 
 # Load forge shell theme (prompt with AI context) if not already loaded
-if [[ -z "$_FORGE_THEME_LOADED" ]]; then
+if [[ -z "$_FORGE_THEME_LOADED" ]] && command -v forge >/dev/null 2>&1; then
     eval "$(forge zsh theme)"
 fi
 # <<< forge initialize <<<
