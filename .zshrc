@@ -1,3 +1,6 @@
+# Added by ForgeCode installer
+export PATH="/Users/dpucci/.local/bin:$PATH"
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
