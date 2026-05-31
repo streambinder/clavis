@@ -6,3 +6,5 @@
 	path = .gitconfig.credential
 [init]
 	defaultBranch = master
+[pull]
+	rebase = true
