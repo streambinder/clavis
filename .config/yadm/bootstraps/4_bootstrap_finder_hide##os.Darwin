@@ -11,4 +11,4 @@ while IFS= read -r entry || [ -n "${entry}" ]; do
 	[ -e "${path}" ] || continue
 	echo "Hiding ${path}"
 	chflags hidden "${path}"
-done < "${HOME}/.hidden"
+done <"${HOME}/.hidden"
