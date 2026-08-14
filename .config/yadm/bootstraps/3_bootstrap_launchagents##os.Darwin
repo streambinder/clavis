@@ -6,12 +6,21 @@ domain="gui/$(id -u)"
 
 echo "Loading launch agents..."
 for plist in "${HOME}"/Library/LaunchAgents/*.plist; do
+	# -f follows symlinks, so dangling alt links are skipped
 	[ -f "${plist}" ] || continue
-	label="$(/usr/libexec/PlistBuddy -c "Print :Label" "${plist}" 2>/dev/null)" || continue
-	if launchctl print "${domain}/${label}" &>/dev/null; then
-		echo "Already loaded: ${label}"
+	if ! label="$(/usr/libexec/PlistBuddy -c "Print :Label" "${plist}" 2>/dev/null)"; then
+		echo "WARNING: no :Label in ${plist##*/}, skipping" >&2
 		continue
 	fi
+	# bootstrap refuses a label that's already registered, and launchd keeps whatever
+	# definition it loaded first — so a stale job outlives every edit to the plist.
+	# always evict then load, otherwise this script latches instead of converging.
+	launchctl bootout "${domain}/${label}" 2>/dev/null || true
+	# bootout can return before teardown finishes; bootstrapping too early gets EBUSY
+	for _ in $(seq 25); do
+		launchctl print "${domain}/${label}" &>/dev/null || break
+		sleep 0.2
+	done
 	echo "Loading: ${label}"
-	launchctl bootstrap "${domain}" "${plist}"
+	launchctl bootstrap "${domain}" "${plist}" || echo "WARNING: failed to load ${label}" >&2
 done
