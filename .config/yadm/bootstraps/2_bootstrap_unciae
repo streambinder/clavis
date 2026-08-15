@@ -62,6 +62,6 @@ if [ -d ".local/share/unciae/agents" ]; then
 		agent_dir="$(dirname "${fname}")"
 		agent_name="$(basename "${agent_dir}")"
 		echo "Linking agent ${agent_name} at $HOME/.pi/agent/agents/${agent_name}.md"
-		ln -sf "$fname" "$HOME/.pi/agent/agents/${agent_name}.md"
+		ln -sf "$(realpath "${fname}")" "$HOME/.pi/agent/agents/${agent_name}.md"
 	done
 fi
