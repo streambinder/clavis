@@ -54,3 +54,14 @@ find .local/share/unciae -type f -name "main.*" -not -path '*/.venv/*' -not -pat
 	esac
 	[ -e "${fname_bin_path}" ] && chmod a+x "${fname_bin_path}"
 done
+
+echo "Bootstrapping Pi subagents..."
+mkdir -p "$HOME/.pi/agent/agents"
+if [ -d ".local/share/unciae/agents" ]; then
+	find .local/share/unciae/agents -name 'README.md' | while read -r fname; do
+		agent_dir="$(dirname "${fname}")"
+		agent_name="$(basename "${agent_dir}")"
+		echo "Linking agent ${agent_name} at $HOME/.pi/agent/agents/${agent_name}.md"
+		ln -sf "$fname" "$HOME/.pi/agent/agents/${agent_name}.md"
+	done
+fi
