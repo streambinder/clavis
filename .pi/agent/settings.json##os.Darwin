@@ -13,5 +13,6 @@
     "npm:@vndv/pi-codegraph@0.1.10"
   ],
   "theme": "dark",
-  "memoryGuardTier": "aggressive"
+  "memoryGuardTier": "aggressive",
+  "lastChangelogVersion": "0.84.2"
 }
