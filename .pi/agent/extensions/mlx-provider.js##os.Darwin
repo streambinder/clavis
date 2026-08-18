@@ -1,0 +1,43 @@
+// oMLX provider — local MLX models on port 8000
+//
+// One model, deliberately. The context window is sized against real KV cost,
+// not guesswork: Qwen3.6 is hybrid GDN, so only 10 of its 40 layers keep a KV
+// cache (full_attention_interval=4, 2 KV heads) and 262K context costs ~5 GB.
+export default function (pi) {
+  const free = { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 };
+
+  pi.registerProvider("local", {
+    baseUrl: "http://127.0.0.1:8000/v1",
+    apiKey: "omlx",
+    api: "openai-completions",
+    models: [
+      {
+        id: "Jundot--Qwen3.6-35B-A3B-oQ4e-mtp",
+        name: "Qwen3.6-35B-A3B oQ4e+MTP",
+        reasoning: false,
+        input: ["text", "image"],
+        cost: free,
+        // 20.8 GB resident. Same arch + quant as the stock mlx-community 4bit
+        // (qwen3_5_moe_text, 256 experts / 8 active, 4-bit affine gs64) plus a
+        // 42-tensor MTP head the stock build does NOT have.
+        // Lightning MTP measured 104 -> 150-167 tok/s (+55%) and 8.1-9.6 -> 6.3
+        // s per agentic round, 30/30 tool calls over 6 rounds, deterministic.
+        // REQUIRES ~/.omlx/model_settings.json with mtp_enabled:true for this
+        // id -- oMLX defaults mtp_enabled to FALSE, and the startup "MTP patch
+        // applied" log lines do NOT mean it is on. Confirm with:
+        //   grep "MTP path activated" ~/.omlx/logs/server.log
+        // Also a VLM: reads code screenshots and charts (oMLX loads it as
+        // type: vlm, 19.95 GB full vs 19.08 text-only).
+        // Thinking works via chat_template_kwargs.enable_thinking but it
+        // overthinks easy problems -- 2690 reasoning tokens on bat-and-ball.
+        // Left off via defaultThinkingLevel in settings.json.
+        contextWindow: 262144,
+        maxTokens: 32768,
+      },
+    ],
+    compat: {
+      supportsDeveloperRole: false,
+      maxTokensField: "max_tokens",
+    },
+  });
+}

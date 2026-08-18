@@ -1,0 +1,17 @@
+{
+  "defaultProvider": "local",
+  "defaultModel": "Jundot--Qwen3.6-35B-A3B-oQ4e-mtp",
+  "defaultThinkingLevel": "off",
+  "retry": {
+    "provider": {
+      "timeoutMs": 600000
+    }
+  },
+  "httpIdleTimeoutMs": 600000,
+  "packages": [
+    "npm:pi-web-access",
+    "npm:@vndv/pi-codegraph@0.1.10"
+  ],
+  "theme": "dark",
+  "memoryGuardTier": "aggressive"
+}

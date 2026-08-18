@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "models": {
+    "Jundot--Qwen3.6-35B-A3B-oQ4e-mtp": {
+      "mtp_enabled": true
+    }
+  }
+}
