@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>local.mlx-serve</string>
+
+  <!-- Local inference server for the pi coding agent (see
+       ~/.pi/agent/extensions/mlx-provider.js). Replaced oMLX on 2026-08-22;
+       oMLX's own config was untracked in the same commit, recover from history.
+
+       SETUP on a fresh machine, in order:
+         brew install mlx-serve
+         mkdir -p ~/.mlx-serve/models
+         ln -sfn ~/.cache/huggingface/hub/models--Jundot--Qwen3.6-35B-A3B-oQ4e-mtp/snapshots/<hash> \
+                 ~/.mlx-serve/models/Jundot--Qwen3.6-35B-A3B-oQ4e-mtp
+         launchctl load -w ~/Library/LaunchAgents/local.mlx-serve.plist
+       The symlink BASENAME is what mlx-serve serves as the model id, and it
+       must match the id in mlx-provider.js. Re-point it if the snapshot changes.
+       launchd expands neither ~ nor $HOME, hence the absolute paths below.
+
+       Every flag is a NON-DEFAULT that cost a measurement to find:
+         --mtp                  On MoE targets mlx-serve serves via PLD unless
+                                forced (measured 133 tok/s, WORSE than oMLX).
+                                It defaults to MTP only on DENSE models.
+         --host 127.0.0.1       Default is 0.0.0.0, open to the LAN. Also note
+                                --lan-share/--lan-discover exist; leave them off.
+         --port 8000            Same port oMLX uses, deliberately: they then
+                                cannot both run (oMLX is SO_REUSEADDR-only, so
+                                the second to start gets EADDRINUSE). CAVEAT:
+                                mlx-serve DOES set SO_REUSEPORT, so two
+                                *mlx-serve* instances can both bind and split
+                                traffic silently -- never start one by hand.
+                                Check: lsof -nP -iTCP:8000 -sTCP:LISTEN
+         --prefix-cache-mem     Default 2GB. This model's KV is ~25 KB/token, so
+                                2GB holds only ~83k tokens; past that a single
+                                conversation entry cannot fit, is evicted on
+                                insert, and EVERY turn becomes a full re-prefill
+                                (measured 250-320 s/turn at 110k context, vs
+                                1-7 s with this setting). Prefill scales as
+                                ctx^1.67, so a miss at large context is brutal.
+                                16GB covers ~300k tokens.
+         --max-resident-models  Default 3 => 63 GB of 21 GB models on a 64 GB box.
+
+       Fall back to oMLX with:
+         launchctl unload -w ~/Library/LaunchAgents/local.mlx-serve.plist
+         brew services start jundot/omlx/omlx
+       The -w matters, or this returns at next login and races for the port.
+       -->
+  <key>ProgramArguments</key>
+  <array>
+    <string>/opt/homebrew/bin/mlx-serve</string>
+    <string>--model</string>
+    <string>/Users/dpucci/.mlx-serve/models/Jundot--Qwen3.6-35B-A3B-oQ4e-mtp</string>
+    <string>--serve</string>
+    <string>--host</string>
+    <string>127.0.0.1</string>
+    <string>--port</string>
+    <string>8000</string>
+    <string>--mtp</string>
+    <string>--prefix-cache-disk</string>
+    <string>60GB</string>
+    <string>--prefix-cache-mem</string>
+    <string>16GB</string>
+    <string>--max-resident-models</string>
+    <string>1</string>
+    <string>--max-resident-mem</string>
+    <string>40GB</string>
+    <string>--log-file</string>
+    <string>/Users/dpucci/.mlx-serve/server.log</string>
+  </array>
+
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <dict>
+    <key>SuccessfulExit</key>
+    <false/>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>/Users/dpucci/.mlx-serve/stdout.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/dpucci/.mlx-serve/stderr.log</string>
+
+  <key>ProcessType</key>
+  <string>Interactive</string>
+</dict>
+</plist>
