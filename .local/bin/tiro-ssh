@@ -1,0 +1,242 @@
+#!/usr/bin/env python3
+"""
+tiro-ssh — durable Paramiko client via ssh.davidepucci.it:443
+Usage:
+  tiro-ssh <host> [command...]
+  tiro-ssh lobster
+  tiro-ssh lobster "id; hostname; sudo -n -l | head -20"
+
+Hosts:
+  lobster -> 127.0.0.1:22 (canonical per inventory, WebSSH uses localhost)
+  bug -> 192.168.253.2:22
+  scorpion -> 192.168.253.3:22
+  oiler -> idol.oiler.education:22
+  or any host:port / host (defaults port 22) for raw testing
+
+Auth: ~/.ssh/tiro (ed25519, mode 0600), user tiro
+Transport: https_proxy env (hatch-egress-proxy:3128 with auth) -> TLS to ssh.davidepucci.it:443 -> CONNECT to target
+"""
+import sys, os, socket, ssl, time
+import paramiko
+
+BASTION_HOST = "ssh.davidepucci.it"
+BASTION_PORT = 443
+EGRESS_HOST = None
+EGRESS_PORT = None
+EGRESS_AUTH = None
+
+# Resolve egress from env, with auth support
+for k in ("https_proxy", "HTTPS_PROXY", "http_proxy", "HTTP_PROXY"):
+    v = os.environ.get(k)
+    if v:
+        # strip scheme
+        if "://" in v:
+            _, rest = v.split("://", 1)
+        else:
+            rest = v
+        if "@" in rest:
+            creds, rest = rest.rsplit("@", 1)
+            EGRESS_AUTH = creds
+        if ":" in rest:
+            h, p = rest.rsplit(":", 1)
+            # strip trailing / path
+            p = p.split("/")[0]
+            try:
+                EGRESS_PORT = int(p)
+            except:
+                EGRESS_PORT = 3128
+            EGRESS_HOST = h
+        else:
+            EGRESS_HOST = rest.split("/")[0]
+            EGRESS_PORT = 3128
+        break
+
+if not EGRESS_HOST:
+    EGRESS_HOST = "hatch-egress-proxy"
+    EGRESS_PORT = 3128
+
+HOST_MAP = {
+    "lobster": ("127.0.0.1", 22),
+    "bug": ("192.168.253.2", 22),
+    "scorpion": ("192.168.253.3", 22),
+    "oiler": ("idol.oiler.education", 22),
+}
+
+def bastion_socket(target_host, target_port, timeout=15):
+    # 1) outer CONNECT to bastion via egress proxy
+    import base64
+    s = socket.create_connection((EGRESS_HOST, EGRESS_PORT), timeout=timeout)
+    auth_hdr = ""
+    if EGRESS_AUTH:
+        b64 = base64.b64encode(EGRESS_AUTH.encode()).decode()
+        auth_hdr = f"Proxy-Authorization: Basic {b64}\r\n"
+    s.sendall(f"CONNECT {BASTION_HOST}:{BASTION_PORT} HTTP/1.1\r\nHost: {BASTION_HOST}:{BASTION_PORT}\r\n{auth_hdr}\r\n".encode())
+    resp = b""
+    s.settimeout(timeout)
+    while b"\r\n\r\n" not in resp:
+        chunk = s.recv(4096)
+        if not chunk:
+            break
+        resp += chunk
+        if len(resp) > 8192:
+            break
+    if b" 200 " not in resp.split(b"\r\n", 1)[0]:
+        raise RuntimeError(f"outer CONNECT {BASTION_HOST}:{BASTION_PORT} failed: {resp[:600]!r}")
+
+    # 2) TLS
+    ctx = ssl.create_default_context()
+    cs = ctx.wrap_socket(s, server_hostname=BASTION_HOST)
+
+    # 3) inner CONNECT to target
+    cs.sendall(f"CONNECT {target_host}:{target_port} HTTP/1.1\r\nHost: {target_host}:{target_port}\r\nConnection: close\r\n\r\n".encode())
+    resp = b""
+    cs.settimeout(timeout)
+    while b"\r\n\r\n" not in resp:
+        chunk = cs.recv(4096)
+        if not chunk:
+            break
+        resp += chunk
+        if len(resp) > 8192:
+            break
+    if b" 200 " not in resp.split(b"\r\n", 1)[0]:
+        raise RuntimeError(f"inner CONNECT {target_host}:{target_port} failed: {resp[:800]!r}")
+
+    # leftover handling
+    idx = resp.find(b"\r\n\r\n")
+    leftover = resp[idx+4:] if idx != -1 else b""
+    if leftover:
+        class LeftoverSocket:
+            def __init__(self, sock, leftover):
+                self.sock = sock
+                self.leftover = leftover
+            def recv(self, n):
+                if self.leftover:
+                    data = self.leftover[:n]
+                    self.leftover = self.leftover[n:]
+                    return data
+                return self.sock.recv(n)
+            def send(self, data):
+                return self.sock.send(data)
+            def sendall(self, data):
+                return self.sock.sendall(data)
+            def settimeout(self, t):
+                return self.sock.settimeout(t)
+            def gettimeout(self):
+                return self.sock.gettimeout()
+            def close(self):
+                return self.sock.close()
+            def __getattr__(self, name):
+                return getattr(self.sock, name)
+        cs = LeftoverSocket(cs, leftover)
+    return cs
+
+def main():
+    if len(sys.argv) < 2:
+        print(f"Usage: {sys.argv[0]} <host> [command...]", file=sys.stderr)
+        print(f"  hosts: {', '.join(HOST_MAP.keys())} or host[:port]", file=sys.stderr)
+        sys.exit(2)
+    alias = sys.argv[1]
+    cmd = " ".join(sys.argv[2:]) if len(sys.argv) > 2 else None
+
+    if alias in HOST_MAP:
+        th, tp = HOST_MAP[alias]
+    elif ":" in alias and not alias.startswith("["):
+        # host:port
+        h, p = alias.rsplit(":", 1)
+        try:
+            th, tp = h, int(p)
+        except:
+            th, tp = alias, 22
+    else:
+        th, tp = alias, 22
+
+    key_path = os.path.expanduser("~/.ssh/tiro")
+    if not os.path.exists(key_path):
+        print(f"key not found: {key_path}", file=sys.stderr)
+        sys.exit(2)
+
+    try:
+        sock = bastion_socket(th, tp)
+    except Exception as e:
+        print(f"[{alias}] tunnel failed: {e}", file=sys.stderr)
+        sys.exit(1)
+
+    try:
+        transport = paramiko.Transport(sock)
+        transport.set_keepalive(15)
+        key = paramiko.Ed25519Key.from_private_key_file(key_path)
+        transport.connect(username="tiro", pkey=key)
+    except Exception as e:
+        print(f"[{alias}] ssh auth failed: {e}", file=sys.stderr)
+        sock.close()
+        sys.exit(1)
+
+    if not cmd:
+        # interactive shell
+        chan = transport.open_session()
+        chan.get_pty()
+        chan.invoke_shell()
+        import select, termios, tty
+        # simple interactive loop
+        try:
+            import sys as sys2
+            fd = sys2.stdin.fileno()
+            old = termios.tcgetattr(fd)
+            tty.setraw(fd)
+            chan.settimeout(0.1)
+            while True:
+                r, _, _ = select.select([chan, sys2.stdin], [], [], 0.2)
+                if chan in r:
+                    try:
+                        data = chan.recv(4096)
+                        if not data:
+                            break
+                        os.write(sys2.stdout.fileno(), data)
+                    except:
+                        break
+                if sys2.stdin in r:
+                    data = os.read(fd, 1024)
+                    if not data:
+                        break
+                    chan.send(data)
+                if chan.exit_status_ready():
+                    break
+        except Exception as e:
+            print(f"\ninteractive error: {e}", file=sys.stderr)
+        finally:
+            try:
+                termios.tcsetattr(fd, termios.TCSADRAIN, old)
+            except:
+                pass
+        transport.close()
+        sock.close()
+        sys.exit(0)
+
+    # exec command
+    chan = transport.open_session()
+    chan.exec_command(cmd)
+    out = b""
+    err = b""
+    start = time.time()
+    while not chan.exit_status_ready():
+        if chan.recv_ready():
+            out += chan.recv(8192)
+        if chan.recv_stderr_ready():
+            err += chan.recv_stderr(8192)
+        if time.time() - start > 60:
+            break
+        time.sleep(0.05)
+    while chan.recv_ready():
+        out += chan.recv(8192)
+    while chan.recv_stderr_ready():
+        err += chan.recv_stderr(8192)
+    code = chan.recv_exit_status()
+    sys.stdout.buffer.write(out)
+    if err:
+        sys.stderr.buffer.write(err)
+    transport.close()
+    sock.close()
+    sys.exit(code)
+
+if __name__ == "__main__":
+    main()
