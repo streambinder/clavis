@@ -11,6 +11,9 @@
   "packages": [
     "npm:pi-web-access"
   ],
+  "skills": [
+    "~/.local/share/ripwire/skills"
+  ],
   "theme": "dark",
   "memoryGuardTier": "aggressive",
   "lastChangelogVersion": "0.85.1"
