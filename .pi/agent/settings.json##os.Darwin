@@ -9,8 +9,7 @@
   },
   "httpIdleTimeoutMs": 600000,
   "packages": [
-    "npm:pi-web-access",
-    "npm:@vndv/pi-codegraph@0.1.10"
+    "npm:pi-web-access"
   ],
   "theme": "dark",
   "memoryGuardTier": "aggressive",
