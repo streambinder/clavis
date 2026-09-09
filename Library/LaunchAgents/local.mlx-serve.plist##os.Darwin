@@ -41,6 +41,17 @@
                                 ctx^1.67, so a miss at large context is brutal.
                                 16GB covers ~300k tokens.
          --max-resident-models  Default 3 => 63 GB of 21 GB models on a 64 GB box.
+         --ctx-size             Pinned, because the auto-sizer is a LOTTERY, not a
+                                function of free RAM: across restarts on this box it
+                                rolled 98304 / 177152 / 201728 / 224256 / 234496 /
+                                236544 / 251904 / 262144, and 42.15 GB free once gave
+                                262144 while 42.64 GB gave 177152. mlx-provider.js
+                                tells pi contextWindow 262144 unconditionally, so any
+                                lower roll means pi builds an oversized prompt and the
+                                server answers `400 (prompt N exceeds ctx_size M)` on
+                                every turn. Budget: 20.1 GB weights + ~6.5 GB KV at
+                                262k + 16 GB prefix cache = 42.6 GB vs the 53 GB
+                                wired limit.
 
        Fall back to oMLX with:
          launchctl unload -w ~/Library/LaunchAgents/local.mlx-serve.plist
@@ -57,6 +68,8 @@
     <string>127.0.0.1</string>
     <string>--port</string>
     <string>8000</string>
+    <string>--ctx-size</string>
+    <string>262144</string>
     <string>--mtp</string>
     <string>--prefix-cache-disk</string>
     <string>60GB</string>
