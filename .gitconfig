@@ -10,3 +10,5 @@
 	rebase = true
 [submodule]
 	recurse = true
+[core]
+	pager = cat
