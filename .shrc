@@ -5,6 +5,8 @@
 export EDITOR="vim"
 export ZSH_THEME="cypher"
 export GOPATH="$HOME/.go"
+# homebrew
+export HOMEBREW_NO_AUTO_UPDATE=1
 # auxiliary
 export _SUDO_CMDS="apt eopkg updatedb openvpn solbuild fdisk fastboot eject"
 # path
