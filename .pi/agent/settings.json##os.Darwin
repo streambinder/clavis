@@ -14,7 +14,7 @@
   "skills": [
     "~/.local/share/ripwire/skills"
   ],
-  "theme": "dark",
+  "theme": "light/dark",
   "memoryGuardTier": "aggressive",
-  "lastChangelogVersion": "0.85.1"
+  "lastChangelogVersion": "0.87.1"
 }
