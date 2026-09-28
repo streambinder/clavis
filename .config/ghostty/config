@@ -6,3 +6,6 @@ window-vsync = false
 
 # let Metal handle blending natively, no extra passes
 alpha-blending = native
+
+# auto-switch colors with system dark/light mode
+theme = light:iTerm2 Solarized Light,dark:iTerm2 Solarized Dark
