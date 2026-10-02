@@ -8,6 +8,13 @@
     }
   },
   "httpIdleTimeoutMs": 600000,
+  "compaction": {
+    "modelOverrides": {
+      "local/Jundot--Qwen3.6-35B-A3B-oQ4e-mtp": {
+        "reserveTokens": 182144
+      }
+    }
+  },
   "packages": [
     "npm:pi-web-access"
   ],
