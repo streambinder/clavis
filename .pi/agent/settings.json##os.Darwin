@@ -23,5 +23,5 @@
   ],
   "theme": "light/dark",
   "memoryGuardTier": "aggressive",
-  "lastChangelogVersion": "0.87.1"
+  "lastChangelogVersion": "1.0.2"
 }
