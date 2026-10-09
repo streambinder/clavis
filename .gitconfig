@@ -1,6 +1,5 @@
 [commit]
 	gpgsign = true
-
 [include]
 	path = .gitconfig.d/user
 	path = .gitconfig.d/credential
