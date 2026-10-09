@@ -2,8 +2,9 @@
 	gpgsign = true
 
 [include]
-	path = .gitconfig.user
-	path = .gitconfig.credential
+	path = .gitconfig.d/user
+	path = .gitconfig.d/credential
+	path = .gitconfig.d/work
 [init]
 	defaultBranch = master
 [pull]
