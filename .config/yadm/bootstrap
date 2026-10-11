@@ -1,12 +1,24 @@
 #!/bin/bash
 
-set -euo pipefail
+set -uo pipefail
 
-cd "${HOME}/.config/yadm"
+cd "${HOME}/.config/yadm" || exit 1
+
+declare -a failed_bootstraps=()
 
 echo "Bootstrapping.."
 for bootstrap_fname in bootstraps/[0-9]_bootstrap_*; do
 	[[ "${bootstrap_fname}" =~ "##" ]] && continue
 	echo "[${bootstrap_fname}]"
-	bash "${bootstrap_fname}"
+	if ! bash "${bootstrap_fname}"; then
+		echo "ERROR: ${bootstrap_fname} failed" >&2
+		failed_bootstraps+=("${bootstrap_fname}")
+	fi
 done
+
+if ((${#failed_bootstraps[@]} > 0)); then
+	echo "Bootstrapping finished with failures: ${failed_bootstraps[*]}" >&2
+	exit 1
+fi
+
+echo "Bootstrapping complete."
