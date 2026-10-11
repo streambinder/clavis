@@ -41,14 +41,14 @@ find .local/share/unciae -type f -name "main.*" -not -path '*/.venv/*' -not -pat
 		fi
 		fname_parent_abs="$(realpath "${fname_bin_parent}")"
 		echo "Provisioning Python script ${fname_bin} via uv at ${fname_bin_path}"
-		uv sync --frozen --project "${fname_parent_abs}"
+		uv sync --frozen --no-dev --project "${fname_parent_abs}"
 		cat >"${fname_bin_path}" <<-EOF
 			#!/bin/bash
-			exec env -u VIRTUAL_ENV uv --project "${fname_parent_abs}" run --frozen python "${fname_abs}" "\$@"
+			exec env -u VIRTUAL_ENV uv --project "${fname_parent_abs}" run --frozen --no-dev python "${fname_abs}" "\$@"
 		EOF
 		chmod a+x "${fname_bin_path}"
 		# pre-compile bytecode for faster cold-start
-		uv --project "${fname_parent_abs}" run --frozen python -m compileall -q "${fname_parent_abs}" >/dev/null 2>&1 || echo "${fname_bin} compileall failed"
+		uv --project "${fname_parent_abs}" run --frozen --no-dev python -m compileall -q "${fname_parent_abs}" >/dev/null 2>&1 || echo "${fname_bin} compileall failed"
 		;;
 	go)
 		echo "Building Go script ${fname_bin} at ${fname_bin_path}"
