@@ -46,17 +46,14 @@ provision_tool() {
 		local fname_parent_abs
 		fname_parent_abs="$(realpath "${fname_bin_parent}")"
 		echo "Provisioning Python script ${fname_bin} via uv at ${fname_bin_path}"
-		# install dependencies only: the launcher runs main.py by path, so the
-		# project package is never imported. Building it would fetch the build
-		# backend from the network at provision time and at every first run.
-		uv sync --frozen --no-dev --no-install-project --project "${fname_parent_abs}" || return 1
+		uv sync --frozen --no-dev --project "${fname_parent_abs}" || return 1
 		cat >"${fname_bin_path}" <<-EOF || return 1
 			#!/bin/bash
-			exec env -u VIRTUAL_ENV uv --project "${fname_parent_abs}" run --no-sync --frozen --no-dev python "${fname_abs}" "\$@"
+			exec env -u VIRTUAL_ENV uv --project "${fname_parent_abs}" run --frozen --no-dev python "${fname_abs}" "\$@"
 		EOF
 		chmod a+x "${fname_bin_path}" || return 1
 		# pre-compile bytecode for faster cold-start
-		uv --project "${fname_parent_abs}" run --no-sync --frozen --no-dev python -m compileall -q "${fname_parent_abs}" >/dev/null 2>&1 || echo "${fname_bin} compileall failed"
+		uv --project "${fname_parent_abs}" run --frozen --no-dev python -m compileall -q "${fname_parent_abs}" >/dev/null 2>&1 || echo "${fname_bin} compileall failed"
 		;;
 	go)
 		echo "Building Go script ${fname_bin} at ${fname_bin_path}"
