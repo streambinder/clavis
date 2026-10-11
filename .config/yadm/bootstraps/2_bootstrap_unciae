@@ -1,14 +1,17 @@
 #!/bin/bash
 
-set -euo pipefail
+set -uo pipefail
 
-cd "${HOME}"
+cd "${HOME}" || exit 1
 
 # strip caller venv: loop spans many projects, each with own .venv
 unset VIRTUAL_ENV
 
 echo "Syncing unciae submodule..."
-yadm submodule update --init --recursive .local/share/unciae
+if ! yadm submodule update --init --recursive .local/share/unciae; then
+	echo "ERROR: unciae submodule sync failed" >&2
+	exit 1
+fi
 
 PI_SKILLS="${HOME}/.pi/agent/skills"
 PI_EXTENSIONS="${HOME}/.pi/agent/extensions"
@@ -17,11 +20,12 @@ mkdir -p "${PI_SKILLS}" "${PI_EXTENSIONS}"
 echo "Deleting broken symlinks..."
 find -L .local/bin "${PI_SKILLS}" "${PI_EXTENSIONS}" -maxdepth 1 -type l -print -exec rm -f {} +
 
-# pi_extensions entrypoints are main.ts, which this loop would otherwise try to
-# link into .local/bin as if they were tools
-echo "Linking existing tools..."
-find .local/share/unciae -type f -name "main.*" -not -path '*/.venv/*' -not -path '*/__pycache__/*' -not -path '*/pi_extensions/*' | while read -r fname; do
+declare -a failed_tools=()
+
+provision_tool() {
+	local fname="$1"
 	# file name: .local/share/unciae/category/uncia/main.sh
+	local fname_bin fname_bin_rel fname_bin_path fname_bin_parent fname_abs
 	fname_bin="$(awk -F/ '{print $(NF-1)}' <<<"${fname}")" # script name: uncia
 	fname_bin_rel="${fname/.local/..}"                     # path relative to .local/bin: ../share/unciae/category/uncia/main.sh
 	fname_bin_path=".local/bin/${fname_bin}"               # script target path: .local/bin/uncia
@@ -31,35 +35,45 @@ find .local/share/unciae -type f -name "main.*" -not -path '*/.venv/*' -not -pat
 	case "${fname##*.}" in
 	sh)
 		echo "Linking shell script ${fname_bin} at ${fname_bin_path}"
-		ln -sf "${fname_bin_rel}" "${fname_bin_path}"
+		ln -sf "${fname_bin_rel}" "${fname_bin_path}" || return 1
 		;;
 	py)
-		fname_pyproject="${fname_bin_parent}/pyproject.toml"
+		local fname_pyproject="${fname_bin_parent}/pyproject.toml"
 		if [ ! -f "${fname_pyproject}" ]; then
 			echo "ERROR: ${fname_bin} missing pyproject.toml at ${fname_bin_parent} (per unciae/ai/README.md §21.10)" >&2
-			exit 1
+			return 1
 		fi
+		local fname_parent_abs
 		fname_parent_abs="$(realpath "${fname_bin_parent}")"
 		echo "Provisioning Python script ${fname_bin} via uv at ${fname_bin_path}"
-		uv sync --frozen --no-dev --project "${fname_parent_abs}"
-		cat >"${fname_bin_path}" <<-EOF
+		uv sync --frozen --no-dev --project "${fname_parent_abs}" || return 1
+		cat >"${fname_bin_path}" <<-EOF || return 1
 			#!/bin/bash
 			exec env -u VIRTUAL_ENV uv --project "${fname_parent_abs}" run --frozen --no-dev python "${fname_abs}" "\$@"
 		EOF
-		chmod a+x "${fname_bin_path}"
+		chmod a+x "${fname_bin_path}" || return 1
 		# pre-compile bytecode for faster cold-start
 		uv --project "${fname_parent_abs}" run --frozen --no-dev python -m compileall -q "${fname_parent_abs}" >/dev/null 2>&1 || echo "${fname_bin} compileall failed"
 		;;
 	go)
 		echo "Building Go script ${fname_bin} at ${fname_bin_path}"
-		cd "${fname_bin_parent}"
-		go build
-		cd - >/dev/null
-		mv "${fname_bin_parent}/${fname_bin}" "${fname_bin_path}"
+		(cd "${fname_bin_parent}" && go build) || return 1
+		mv "${fname_bin_parent}/${fname_bin}" "${fname_bin_path}" || return 1
 		;;
 	esac
 	[ -e "${fname_bin_path}" ] && chmod a+x "${fname_bin_path}"
-done
+	return 0
+}
+
+# pi_extensions entrypoints are main.ts, which this loop would otherwise try to
+# link into .local/bin as if they were tools
+echo "Linking existing tools..."
+while read -r fname; do
+	if ! provision_tool "${fname}"; then
+		echo "ERROR: provisioning of ${fname} failed" >&2
+		failed_tools+=("$(awk -F/ '{print $(NF-1)}' <<<"${fname}")")
+	fi
+done < <(find .local/share/unciae -type f -name "main.*" -not -path '*/.venv/*' -not -path '*/__pycache__/*' -not -path '*/pi_extensions/*')
 
 echo "Bootstrapping Pi skills..."
 if [ -d ".local/share/unciae/pi_skills" ]; then
@@ -79,4 +93,9 @@ if [ -d ".local/share/unciae/pi_extensions" ]; then
 		echo "Linking extension ${extension_name} at ${PI_EXTENSIONS}/${extension_name}.ts"
 		ln -sf "$(realpath "${fname}")" "${PI_EXTENSIONS}/${extension_name}.ts"
 	done
+fi
+
+if ((${#failed_tools[@]} > 0)); then
+	echo "Provisioning finished with failures: ${failed_tools[*]}" >&2
+	exit 1
 fi
