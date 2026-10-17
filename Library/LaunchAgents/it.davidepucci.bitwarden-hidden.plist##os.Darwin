@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>it.davidepucci.bitwarden-hidden</string>
+
+  <!-- Start Bitwarden at login without showing its window.
+       The browser extension needs the desktop app running for Touch ID
+       unlock, but the app has no start-to-menu-bar option on macOS. It
+       also ignores the hidden state of a LaunchServices open, so every
+       launch shows the main window in the foreground. Feature request:
+       https://community.bitwarden.com/t/desktop-macos-restore-start-to-menu-bar-start-at-login-without-showing-the-main-window/102959
+
+       This agent launches the app, waits for the window to appear, then
+       hides the app with System Events. The process stays alive in the
+       menu bar and keeps serving the browser extension. Raise the delay
+       if a slow start leaves the window visible.
+
+       SETUP in Bitwarden, in order:
+         Start automatically on login: OFF (this agent replaces it)
+         Keep Bitwarden running in the background: ON
+         Unlock with Touch ID, Require Touch ID on app start: OFF
+       The first run asks for Automation permission to control System
+       Events. Grant it once.
+
+       Remove with:
+         launchctl bootout gui/$(id -u)/it.davidepucci.bitwarden-hidden
+       -->
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/osascript</string>
+    <string>-e</string>
+    <string>tell application "Bitwarden" to launch</string>
+    <string>-e</string>
+    <string>delay 3</string>
+    <string>-e</string>
+    <string>tell application "System Events" to set visible of application process "Bitwarden" to false</string>
+  </array>
+
+  <key>RunAtLoad</key>
+  <true/>
+</dict>
+</plist>
