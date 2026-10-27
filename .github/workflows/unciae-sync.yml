@@ -4,6 +4,11 @@ on:
   repository_dispatch:
     types: [unciae-sync]
 
+# Two dispatches in a row must queue, not race on master.
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
 permissions:
   actions: read
   attestations: none
@@ -41,8 +46,44 @@ jobs:
         run: |
           git submodule update --init "${submodule_path}"
           git --git-dir="${submodule_path}/.git" checkout "${GITHUB_EVENT_CLIENT_PAYLOAD_SHA}"
-          git commit -m "chore(unciae): sync (streambinder/unciae@$(cut -c-7 <<< "${GITHUB_EVENT_CLIENT_PAYLOAD_SHA}"))" "${submodule_path}"
+          git add "${submodule_path}"
+          if git diff --cached --quiet; then
+            echo "No submodule change to commit"
+            exit 0
+          fi
+          git commit -m "chore(unciae): sync (streambinder/unciae@$(cut -c-7 <<< "${GITHUB_EVENT_CLIENT_PAYLOAD_SHA}"))"
         env:
           GITHUB_EVENT_CLIENT_PAYLOAD_SHA: ${{ github.event.client_payload.sha }}
       - name: Push repository
-        run: git push
+        run: |
+          TARGET="${GITHUB_EVENT_CLIENT_PAYLOAD_SHA}"
+          for attempt in 1 2 3 4 5; do
+            if git push origin master; then
+              echo "Push succeeded on attempt ${attempt}"
+              exit 0
+            fi
+            echo "Push rejected on attempt ${attempt}: realigning to origin/master"
+            git fetch --depth 50 origin master
+            git reset --hard FETCH_HEAD
+            CURRENT="$(git ls-tree HEAD "${submodule_path}" | awk '{print $3}')"
+            if [ "${CURRENT}" = "${TARGET}" ]; then
+              echo "origin/master already points at ${TARGET}; nothing to push"
+              exit 0
+            fi
+            git --git-dir="${submodule_path}/.git" fetch --depth 50 origin master || true
+            if git --git-dir="${submodule_path}/.git" merge-base --is-ancestor "${TARGET}" "${CURRENT}"; then
+              echo "origin/master already includes ${TARGET}; nothing to push"
+              exit 0
+            fi
+            git --git-dir="${submodule_path}/.git" checkout "${TARGET}"
+            git add "${submodule_path}"
+            if git diff --cached --quiet; then
+              echo "No submodule change to commit"
+              exit 0
+            fi
+            git commit -m "chore(unciae): sync (streambinder/unciae@$(cut -c-7 <<< "${TARGET}"))"
+          done
+          echo "Push failed after 5 attempts" >&2
+          exit 1
+        env:
+          GITHUB_EVENT_CLIENT_PAYLOAD_SHA: ${{ github.event.client_payload.sha }}
