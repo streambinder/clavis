@@ -1,14 +1,25 @@
 [commit]
 	gpgsign = true
+
 [include]
 	path = .gitconfig.d/user
 	path = .gitconfig.d/credential
 	path = .gitconfig.d/work
+
 [init]
 	defaultBranch = master
+
 [pull]
 	rebase = true
+
 [submodule]
 	recurse = true
+
 [core]
 	pager = cat
+
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
