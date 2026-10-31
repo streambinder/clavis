@@ -7,6 +7,11 @@ cd "${HOME}" || exit 1
 # strip caller venv: loop spans many projects, each with own .venv
 unset VIRTUAL_ENV
 
+# RPM-packaged uv (Fedora) sets python-downloads=manual in /etc/uv/uv.toml,
+# so uv sync cannot fetch a pinned interpreter the system does not provide
+# (e.g. Python 3.13 on a 3.14 system). Bootstrap must install it itself.
+export UV_PYTHON_DOWNLOADS=automatic
+
 echo "Syncing unciae submodule..."
 if ! yadm submodule update --init --recursive .local/share/unciae; then
 	echo "ERROR: unciae submodule sync failed" >&2
