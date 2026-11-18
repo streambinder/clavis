@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>local.ianitor</string>
+
+  <!-- Lar Ianitor daemon (see streambinder/lar). Runs at login and
+       restarts on crash. Replaces the terminal runs from
+       ~/Workspace/code/lar with IANITOR_API_URL exported by hand.
+
+       SETUP on peregrine, in order:
+         1. Stop the terminal daemon first, or the two fight over
+            port 8717 and the launchd one restarts forever.
+         2. Move the models into the default data dir, so the
+            daemon needs no IANITOR_MODEL_DIR:
+              mkdir -p ~/Library/Application\ Support/Ianitor/models
+              mv ~/Workspace/code/lar/models/* \
+                 ~/Library/Application\ Support/Ianitor/models/
+            The live enrollment already sits in that data dir
+            (agent.key, ianitor.redb, logs, frames), so identity,
+            store, logs and frame cache need no migration.
+         3. Install the binary on PATH (the plist runs `ianitor`,
+            resolved through the PATH .shrc sets):
+              cp ~/Workspace/code/lar/target/release/ianitor \
+                 ~/.local/bin/ianitor
+            Re-copy it after every rebuild.
+         4. Add this file to the clavis repo as
+            Library/LaunchAgents/local.ianitor.plist##os.Darwin,
+            commit, push, then yadm pull on this machine.
+         5. Load it (the repo bootstrap script does the same
+            bootout-then-bootstrap loop for every agent):
+              launchctl bootstrap gui/$(id -u) \
+                ~/Library/LaunchAgents/local.ianitor.plist
+       Check: curl -s 127.0.0.1:8717/status
+
+       The daemon gets its two non-default variables from ~/.shrc,
+       sourced before exec, so the terminal runs and the daemon
+       share one definition and this plist sets no environment:
+         IANITOR_API_URL        The code default is
+                                http://localhost:8000 (mlx-serve).
+                                Release builds bake the production
+                                URL in, but a local cargo build has
+                                it only when the variable was set at
+                                build time. Set it in .shrc and the
+                                doubt disappears.
+         IANITOR_CAPTURE_CACHE  Off by default; 1 keeps the 60 s
+                                frame cache under the data dir.
+       launchd expands neither ~ nor $HOME, hence the absolute
+       paths below. The shell sources .shrc with $HOME, which
+       launchd sets for user agents.
+
+       TCC: the Screen Recording and Automation grants given to
+       Ghostty do NOT transfer. The first launchd run prompts
+       again, now bound to the ianitor binary in ~/.local/bin.
+       Grant both, or capture and the Chrome incognito sensor
+       stay blind. A rebuild replaces the binary and may prompt
+       again; the .app bundle question is still open.
+       -->
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/sh</string>
+    <string>-c</string>
+    <string>. "$HOME/.shrc"; exec ianitor run</string>
+  </array>
+
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <dict>
+    <key>SuccessfulExit</key>
+    <false/>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>/Users/dpucci/Library/Logs/ianitor.stdout.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/dpucci/Library/Logs/ianitor.stderr.log</string>
+
+  <key>ProcessType</key>
+  <string>Interactive</string>
+</dict>
+</plist>
