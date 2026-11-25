@@ -15,12 +15,8 @@
       }
     }
   },
-  "packages": [
-    "npm:pi-web-access"
-  ],
-  "skills": [
-    "~/.local/share/ripwire/skills"
-  ],
+  "packages": ["npm:pi-web-access"],
+  "skills": ["~/.local/share/ripwire/skills"],
   "theme": "light/dark",
   "memoryGuardTier": "aggressive",
   "lastChangelogVersion": "1.6.0",
