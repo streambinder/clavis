@@ -1,3 +1,4 @@
 .gitconfig.user
 .shrc_secure
 .ssh/config.d/home
+.pi/agent/models.json
